@@ -9,10 +9,14 @@ public class ServerProcess {
     private boolean running = true;
 
     public void start ( int port ) throws IOException {
+        // Open socket
         serverSocket = new ServerSocket( port );
+
+        // Announce system running
         System.out.println( " ---- SERVER ---- " );
         System.out.println( "Server started on port " + port );
 
+        
         while ( running ) {
             
             // Waits for connection, returns socket when connected
