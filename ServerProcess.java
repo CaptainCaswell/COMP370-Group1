@@ -30,10 +30,12 @@ public class ServerProcess {
         System.out.println( " ---- SERVER " + serverID + " ---- " );
         System.out.println( ( isPrimary ? "Primary" : "Secondary" ) + " server started on port " + port );
 
-        // What a primary server does
-        if ( isPrimary ) {
-            while ( running ) {
-                
+        
+        
+        while ( running ) {
+            
+            // What a primary server does
+            if ( isPrimary ) {
                 // Waits for connection, returns socket when connected
                 Socket clientSocket = serverSocket.accept();
 
@@ -41,25 +43,27 @@ public class ServerProcess {
                 Scanner input = new Scanner( clientSocket.getInputStream() );
                 PrintStream output = new PrintStream( clientSocket.getOutputStream() );
 
-                // Display input from client
+                // Get input from client
                 String clientMessage = input.nextLine();
-                System.out.println( "Client sent: " + clientMessage + ". New sum is " + sum + "." );
-
+                
                 // Process and reply
                 String outgoingMessage = processMessage( clientMessage );
+                System.out.println( "Client sent: " + clientMessage + ". New sum is " + sum + "." );
                 output.println( outgoingMessage );
 
                 // Close things
                 input.close();
                 clientSocket.close();
             }
-        }
 
-        // What a secondary server does
-        else {
-            while( running ) {
-                System.out.println( "Waiting in standby mode..." );
-                running = false;
+            // What a secondary server does
+            else {
+                try {
+                    System.out.println( "Waiting in standby mode..." );
+                    Thread.sleep( 1000 );
+                } catch ( InterruptedException e ) {
+                    break;
+                }
             }
         }
 
