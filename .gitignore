@@ -1,1 +1,3 @@
-*.class
+ServerProcess.class
+Client.class
+Monitor.class
