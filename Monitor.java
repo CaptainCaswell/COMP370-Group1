@@ -103,10 +103,6 @@ public class Monitor {
             return clientHeartbeat( message );
         }
 
-        if ( message.startsWith( "CLIENT_PRIMARY") ) {
-            return getPrimary();
-        }
-
         return "ERROR";
     }
 
@@ -124,29 +120,32 @@ public class Monitor {
 
         // Add server to map if not already added (first heartbeat)
         if ( !servers.containsKey( serverID ) ) {
+            // Add server to map
             ServerInfo newServer = new ServerInfo( serverID, serverPort, sum );
             servers.put( serverID, newServer );
+        }
+        
+        String type;
+        
+        // If no current primary, make primary
+        if ( primaryServerID == 0 ) primaryServerID = serverID;
 
-            String type = "SECONDARY";
+        // Get server object
+        ServerInfo server = servers.get( serverID );
+        server.updateHeartbeat( sum );
 
-            // If no primary, make new primary
-            if ( primaryServerID == 0 ) {
-                type = "PRIMARY";
-                primaryServerID = serverID;
-            }
-            
-            System.out.println( "Server " + serverID + " assigned as " + type + ".");
-            return type;
+        // If server is primary
+        if ( primaryServerID == serverID ) {
+            type = "PRIMARY";
         }
 
-        // Server already exists (not first heartbeat)
+        // If server is secondary
         else {
-            ServerInfo server = servers.get( serverID );
-            server.updateHeartbeat( sum );
-
-            // Acknowledge heartbeat
-            return "ACK";
+            type = "SECONDARY";
         }
+
+        System.out.println( "Server " + serverID + " assigned as " + type + ".");
+        return type;
     }
 
     protected String clientHeartbeat( String message ) {
@@ -158,8 +157,9 @@ public class Monitor {
         }
 
         int clientID = Integer.parseInt( splitMessage[1] );
-        
-        return "ACK";
+        // Save current clientIDs
+
+        return getPrimary();
     }
 
     protected String getPrimary() {

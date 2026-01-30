@@ -18,17 +18,25 @@ public class ServerProcess {
     protected static final long HEARTBEAT_INTERVAL = 2000;
 
     // Constructor
-    public ServerProcess() {
-        this.serverID = nextID;
-        this.port = nextID + 1000;
+    public ServerProcess( int port) {
+        this.serverID = port;
+        this.port = port;
         nextID++;
         this.isPrimary = false;
     }
     
     // Main
     public static void main( String[] args ) throws IOException {
+        
+        if ( args.length != 1 ) {
+            System.out.println( "Incorrect Syntax. Enter \"java ServerProcess <port>\"." );
+            return;
+        }
+
+        int port = Integer.parseInt( args[0] );
+        
         // Start server
-        ServerProcess server = new ServerProcess();
+        ServerProcess server = new ServerProcess( port );
         server.start();
     }
 

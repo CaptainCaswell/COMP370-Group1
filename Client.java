@@ -69,11 +69,7 @@ public class Client {
             PrintStream output = new PrintStream( socket.getOutputStream() );
 
             // Request primary or send heartbeat
-            if ( getPrimary() == 0 ) {
-                output.println( "CLIENT_PRIMARY " + clientID );
-            } else {
-                output.println( "CLIENT_HEARTBEAT " + clientID );
-            }
+            output.println( "CLIENT_HEARTBEAT " + clientID );
 
             // Get monitor response
             String response = input.nextLine();
@@ -115,6 +111,7 @@ public class Client {
             socket.close();
         } catch ( Exception e ) {
             System.out.println( "### Send data failed ###" );
+            System.out.println( "### Trying to send to " + getPrimary() + " ###" );
         }
     }
 
@@ -123,7 +120,9 @@ public class Client {
     }
 
     protected synchronized void setPrimary(int port) {
-        primaryServerPort = port;
+        if ( primaryServerPort != port ) {
+            primaryServerPort = port;
+        }
     }
 
 }
