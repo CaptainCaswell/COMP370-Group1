@@ -1,3 +1,5 @@
 ServerProcess.class
 Client.class
 Monitor.class
+Monitor$ServerInfo.class
+Monitor$ClientInfo.class
