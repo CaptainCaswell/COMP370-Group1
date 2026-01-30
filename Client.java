@@ -3,47 +3,126 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
+    protected int clientID;
+    protected static int nextID = 1;
+
+    protected int primaryServerPort;
+    protected boolean running = true;
+
+    protected static final String host = "localhost";
+    protected static final int monitorPort = 9000;
+
+    protected static final long HEARTBEAT_INTERVAL = 5000;
+    protected static final long DATA_INTERVAL = 5000;
+
+    // Constructor
+    public Client() {
+        this.clientID = nextID;
+        nextID++;
+    }
+
     public static void main ( String[] args ) throws Exception {
-        boolean running = true;
+        Client client = new Client();
+        client.start();
+    }
 
-        if ( args.length != 1 ) {
-            System.out.println( "Incorrect arguments. Include port number and message." );
-            return;
-        }
+    protected void start() throws Exception {
+        // Start sending heartbeat
+        Thread heartbeatThread = new Thread(() ->{
+            try {
+                while ( running ) {
+                    sendHeartbeat();
+                    Thread.sleep( HEARTBEAT_INTERVAL );
+                }
+            } catch ( Exception e ) {
+                e.printStackTrace();
+            }
+        });
+
+        heartbeatThread.setDaemon( true );
+        heartbeatThread.start();
+
+        while ( running ) {
+            // Get random number from 1-100
+            int data = (int)(Math.random() * 100) + 1;
+
+            if ( getPrimary() == 0 ) {
+                System.out.println( "Primary not found, requesting from monitor...");
+                // Request done by heartbeat
+            }
+
+            if ( getPrimary() == 0 ) {
+                System.out.println( "Unable to find primary. Retrying..." );
+            } else {
+                sendData( data );
+            }
         
-        String host = "localhost";
-        int port = Integer.parseInt( args[0] );
+        Thread.sleep( DATA_INTERVAL );
+        }
+    }
 
-        Scanner user = new Scanner( System.in );
-
-        while( running ) {
-            System.out.println( "What do you want to send?" );
-
-            String outgoingMessage = user.nextLine();
-
-            System.out.println( " ---- CLIENT ---- " );
-
-            // Make connection
-            Socket socket = new Socket( host, port );
-
-            // Set variables for socket input and output
+    protected void sendHeartbeat() {
+        try {
+            // Setup Socket with input and output
+            Socket socket = new Socket( host, monitorPort );
             Scanner input = new Scanner( socket.getInputStream() );
             PrintStream output = new PrintStream( socket.getOutputStream() );
 
-            // Send this to the server
-            System.out.println( "Sending the following to server: " + outgoingMessage );
-            output.println( outgoingMessage );
+            // Request primary or send heartbeat
+            if ( getPrimary() == 0 ) {
+                output.println( "CLIENT_PRIMARY " + clientID );
+            } else {
+                output.println( "CLIENT_HEARTBEAT " + clientID );
+            }
+
+            // Get monitor response
+            String response = input.nextLine();
+            System.out.println( "Monitor response: " + response );
+
+            if ( response.startsWith( "CURRENT_PRIMARY" ) ) {
+                setPrimary( Integer.parseInt( response.split( " " )[1] ) );
+            } else if ( response.equals( "ACK" ) ) {
+                System.out.println( "Heartbeat not acknowledged." );
+            }
+
+            input.close();
+            output.close();
+            socket.close();
+        } catch ( Exception e ) {
+            System.out.println( "### Heartbeat failed ###" );
+        }
+    }
+
+    protected void sendData( int data ) throws Exception {
+        try {
+            // Setup Socket with input and output
+            Socket socket = new Socket( host, getPrimary() );
+            Scanner input = new Scanner( socket.getInputStream() );
+            PrintStream output = new PrintStream( socket.getOutputStream() );
+
+            // Send data
+            System.out.println( "Sending the following to server: " + Integer.toString( data ) );
+            output.println( data );
 
             // Display response from server
-            String clientMessage = input.nextLine();
-            System.out.println( "Server response: " + clientMessage );
+            String response = input.nextLine();
+            System.out.println( "Server response: " + response );
 
             // Close things
             input.close();
+            output.close();
             socket.close();
-            
+        } catch ( Exception e ) {
+            System.out.println( "### Send data failed ###" );
         }
-
-        user.close();
     }
+
+    protected synchronized int getPrimary() {
+        return primaryServerPort;
+    }
+
+    protected synchronized void setPrimary(int port) {
+        primaryServerPort = port;
+    }
+
 }

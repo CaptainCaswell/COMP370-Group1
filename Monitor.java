@@ -3,90 +3,224 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ServerProcess {
-    protected ServerSocket serverSocket;
-    protected int monitorPort = 900;
-    protected boolean running = true;
-    protected static int nextID = 1;
-    protected int sum = 0;
-    protected boolean isPrimary;
-    protected int serverID;
-    protected int port;
+public class Monitor {
+    protected ServerSocket serverSocket; // Socket for this program
+    protected int port; // Port for this program
+    protected boolean running = true; // Flag to keep while loop going
+
+    protected int primaryServerID = 0; // Port for primary server
+    protected Map<Integer, ServerInfo> servers = new HashMap<>(); // Map of servers, ServerID is key
+
+    protected static final long INTERVAL = 2000; // Time between connection checks in milliseconds
+    protected static final long TIMEOUT = 5000; // Time to consider connection lost in milliseconds
+
+    // Inner class to organize connection information
+    protected static class ServerInfo {
+        int serverID;
+        int port;
+        int sum;
+        long lastHeartbeat;
+
+        ServerInfo( int serverID, int port, int sum ) {
+            this.serverID = serverID;
+            this.port = port;
+            this.sum = sum;
+            this.lastHeartbeat = System.currentTimeMillis();
+        }
+
+        void updateHeartbeat( int sum ) {
+            this.sum = sum;
+            this.lastHeartbeat = System.currentTimeMillis();
+        }
+
+        boolean isAlive() {
+            return (System.currentTimeMillis() - lastHeartbeat) < TIMEOUT;
+        }
+
+    }
 
     // Constructor
-    public ServerProcess() {
-        this.serverID = nextID;
-        this.port = nextID + 1000;
-        nextID++;
-        this.isPrimary = !( checkPrimary() );
+    public Monitor() {
+        port = 9000;
+        failureDetector();
     }
     
     public static void main( String[] args ) throws IOException {
         // Start server
-        ServerProcess server = new ServerProcess();
-        server.start();
+        Monitor monitor = new Monitor();
+        monitor.start();
     }
 
     // Start Basic Server
-    public void start () throws IOException {
+    public void start() throws IOException {
         // Open socket
         serverSocket = new ServerSocket( port );
 
         // Announce system running
-        System.out.println( " ---- SERVER " + serverID + " ---- " );
-        System.out.println( ( isPrimary ? "Primary" : "Secondary" ) + " server started on port " + port );
-
-        
+        System.out.println( " ---- MONITOR ---- " );
+        System.out.println( "Monitor started on port " + port );        
         
         while ( running ) {
             
-            // What a primary server does
-            if ( isPrimary ) {
-                // Waits for connection, returns socket when connected
-                Socket clientSocket = serverSocket.accept();
+            // Waits for connection, returns socket when connected
+            Socket incomingSocket = serverSocket.accept();
 
-                // Set variables for socket input and output
-                Scanner input = new Scanner( clientSocket.getInputStream() );
-                PrintStream output = new PrintStream( clientSocket.getOutputStream() );
+            // Set variables for socket input and output
+            Scanner input = new Scanner( incomingSocket.getInputStream() );
+            PrintStream output = new PrintStream( incomingSocket.getOutputStream() );
 
-                // Get input from client
-                String clientMessage = input.nextLine();
-                
-                // Process and reply
-                String outgoingMessage = processMessage( clientMessage );
-                System.out.println( "Client sent: " + clientMessage + ". New sum is " + sum + "." );
-                output.println( outgoingMessage );
+            // Get input from client
+            String message = input.nextLine();
+            
+            // Process and reply
+            String outgoingMessage = processRequest( message );
+            output.println( outgoingMessage );
 
-                // Close things
-                input.close();
-                clientSocket.close();
+            // Close things
+            input.close();
+            incomingSocket.close();
+        }
+
+        serverSocket.close();
+    }
+
+    protected boolean checkPrimary() {
+        return primaryServerID != 0;
+    }
+
+    protected synchronized String processRequest( String message ) {
+
+        // Server
+        if ( message.startsWith( "SERVER_HEARTBEAT") ) {
+            return serverHeartbeat( message );
+        }
+
+        // Client
+        if ( message.startsWith( "CLIENT_HEARTBEAT") ) {
+            //return clientHeartbeat( message );
+        }
+
+        if ( message.startsWith( "CLIENT_PRIMARY") ) {
+            return getPrimary();
+        }
+
+        return "ERROR";
+    }
+
+    protected String serverHeartbeat( String message ) {
+        // Message should be: SERVER_HEARTBEAT serverID port sum
+        String[] splitMessage = message.split( " " );
+
+        int serverID = Integer.parseInt( splitMessage[1] );
+        int serverPort = Integer.parseInt( splitMessage[2] );
+        int sum = Integer.parseInt( splitMessage[3] );
+
+        // Add server to map if not already added (first heartbeat)
+        if ( !servers.containsKey( serverID ) ) {
+            ServerInfo newServer = new ServerInfo( serverID, serverPort, sum );
+            servers.put( serverID, newServer );
+
+            String type = "SECONDARY";
+
+            // If no primary, make new primary
+            if ( primaryServerID == 0 ) {
+                type = "PRIMARY";
+                primaryServerID = serverID;
             }
+            
+            System.out.println( "Server " + serverID + " assigned as " + type + ".");
+            return type;
+        }
 
-            // What a secondary server does
-            else {
+        // Server already exists (not first heartbeat)
+        else {
+            ServerInfo server = servers.get( serverID );
+            server.updateHeartbeat( sum );
+
+            // Acknowledge heartbeat
+            return "ACK";
+        }
+    }
+
+    protected String getPrimary() {
+        if (primaryServerID == 0 ) {
+            return "NONE";
+        } else {
+            ServerInfo primary = servers.get( primaryServerID );
+            return "CURRENT_PRIMARY " + primary.port;
+        }
+    }
+
+    protected void failureDetector() {
+        Thread detector = new Thread( () -> {
+            while ( running ) {
                 try {
-                    System.out.println( "Waiting in standby mode..." );
-                    Thread.sleep( 1000 );
+                    Thread.sleep( INTERVAL );
+                    if ( primaryServerID != 0 ) checkFailures();
                 } catch ( InterruptedException e ) {
                     break;
                 }
             }
+        });
+
+        detector.setDaemon( true );
+        detector.start();
+    }
+
+    protected synchronized void checkFailures() {
+        ServerInfo primary = servers.get( primaryServerID );
+
+        if ( !primary.isAlive() ) {
+            System.out.println( "### PRIMARY FAILURE ###");
+            
+            servers.remove( primaryServerID );
+
+            serverFailover( primary.sum );
         }
 
-        serverSocket.close();
+        servers.entrySet().removeIf( entry -> {
+            ServerInfo server = entry.getValue();
+            // Only trim secondary dead servers
+            if ( server.serverID != primaryServerID && !server.isAlive() ) {
+                System.out.println( "Secondary server " + server.serverID + " not responding. Removed from list." );
+                return true;
+            }
 
+            return false;
+        });
     }
 
-    public void promote() {
-        isPrimary = true;
-        System.out.println( "--- System promoted ---" );
-        // Add return confirmation?
-    }
+    protected void serverFailover( int oldSum ) {
+        Integer candidateID = null;
 
-    protected boolean checkPrimary() {
-        // Should ask monitor is there is a primary already
-        return false;
+        // Find the lowest ID server (highest uptime)
+        for ( Map.Entry<Integer, ServerInfo> entry : servers.entrySet() ) {
+            ServerInfo server = entry.getValue();
+            
+            // Check server is alive
+            if ( server.isAlive() ) {
+                // If no current candidate or current candidate is higher
+                if ( candidateID == null || server.serverID < candidateID ) {
+                    candidateID = server.serverID;
+                }
+            }
+        }
+
+        // If candidate found
+        if ( candidateID != null ) {
+            primaryServerID = candidateID;
+            System.out.println( "FAILOVER to Server " + primaryServerID + " on next heartbeat." );
+            // Need to update sum???
+        }
+        
+        // If no candidates
+        else {
+            primaryServerID = 0;
+            System.out.println( "FAILOVER not possible. No servers available." );
+        }
     }
 
 }
