@@ -13,29 +13,52 @@ public class ServerProcess {
     protected int serverID;
     protected int port;
 
+    protected static final String host = "localhost";
+    protected static final int monitorPort = 9000;
+    protected static final long HEARTBEAT_INTERVAL = 2000;
+
     // Constructor
     public ServerProcess() {
         this.serverID = nextID;
         this.port = nextID + 1000;
         nextID++;
-        this.isPrimary = !( checkPrimary() );
+        this.isPrimary = false;
+    }
+    
+    // Main
+    public static void main( String[] args ) throws IOException {
+        // Start server
+        ServerProcess server = new ServerProcess();
+        server.start();
     }
 
     // Start Basic Server
     public void start () throws IOException {
+        // Start sending heartbeat
+        Thread heartbeatThread = new Thread(() ->{
+            try {
+                while ( running ) {
+                    sendHeartbeat();
+                    Thread.sleep( HEARTBEAT_INTERVAL );
+                }
+            } catch ( Exception e ) {
+                e.printStackTrace();
+            }
+        });
+
+        heartbeatThread.setDaemon( true );
+        heartbeatThread.start();
+
         // Open socket
         serverSocket = new ServerSocket( port );
 
         // Announce system running
-        System.out.println( " ---- SERVER " + serverID + " ---- " );
-        System.out.println( ( isPrimary ? "Primary" : "Secondary" ) + " server started on port " + port );
-
-        
+        System.out.println( " ---- SERVER " + serverID + " ---- " );        
         
         while ( running ) {
             
             // What a primary server does
-            if ( isPrimary ) {
+            if ( getIsPrimary() ) {
                 // Waits for connection, returns socket when connected
                 Socket clientSocket = serverSocket.accept();
 
@@ -71,13 +94,41 @@ public class ServerProcess {
 
     }
 
+    protected void sendHeartbeat() {
+        try {
+            // Setup Socket with input and output
+            Socket socket = new Socket( host, monitorPort );
+            Scanner input = new Scanner( socket.getInputStream() );
+            PrintStream output = new PrintStream( socket.getOutputStream() );
+
+            // Request primary or send heartbeat
+            output.println( "SERVER_HEARTBEAT " + serverID + " " + port + " " + sum );
+
+            // Get monitor response
+            String response = input.nextLine();
+
+            if ( response.equals( "PRIMARY" ) && !getIsPrimary() ) {
+                promote();
+                System.out.println( "Server promoted" );
+            } else if ( response.equals( "ACK" ) || response.equals( "SECONDARY" ) ) {
+                System.out.println( "Heartbeat acknowledged." );
+            }
+
+            input.close();
+            output.close();
+            socket.close();
+        } catch ( Exception e ) {
+            System.out.println( "### Heartbeat failed ###" );
+        }
+    }
+
     protected String processMessage( String clientMessage ) {
         // If message can be cast to number
         try {
             // Sanitize and convert message to integer
             int number = Integer.parseInt( clientMessage.trim() );
 
-            sum += number;
+            toSum( number );
 
             return "Sum sucessful. New sum: " + sum;
         } catch ( NumberFormatException e ) {
@@ -85,21 +136,24 @@ public class ServerProcess {
         }
     }
 
-    public void promote() {
+    public synchronized void promote() {
         isPrimary = true;
         System.out.println( "--- System promoted ---" );
-        // Add return confirmation?
     }
 
-    public static void main( String[] args ) throws IOException {
-        // Start server
-        ServerProcess server = new ServerProcess();
-        server.start();
-    }
 
-    protected boolean checkPrimary() {
+
+    protected synchronized boolean getIsPrimary() {
         // Should ask monitor is there is a primary already
-        return false;
+        return isPrimary;
+    }
+
+    protected synchronized void toSum( int number ) {
+        sum += number;
+    }
+
+    protected synchronized int getSum() {
+        return sum;
     }
 
 }

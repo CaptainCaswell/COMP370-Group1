@@ -100,7 +100,7 @@ public class Monitor {
 
         // Client
         if ( message.startsWith( "CLIENT_HEARTBEAT") ) {
-            //return clientHeartbeat( message );
+            return clientHeartbeat( message );
         }
 
         if ( message.startsWith( "CLIENT_PRIMARY") ) {
@@ -113,6 +113,10 @@ public class Monitor {
     protected String serverHeartbeat( String message ) {
         // Message should be: SERVER_HEARTBEAT serverID port sum
         String[] splitMessage = message.split( " " );
+
+        if ( splitMessage.length != 4) {
+            return "HEARTBEAT SYNTAX ERROR";
+        }
 
         int serverID = Integer.parseInt( splitMessage[1] );
         int serverPort = Integer.parseInt( splitMessage[2] );
@@ -143,6 +147,19 @@ public class Monitor {
             // Acknowledge heartbeat
             return "ACK";
         }
+    }
+
+    protected String clientHeartbeat( String message ) {
+        // Message should be: CLIENT_HEARTBEAT clientID
+        String[] splitMessage = message.split( " " );
+
+        if ( splitMessage.length != 2) {
+            return "HEARTBEAT SYNTAX ERROR";
+        }
+
+        int clientID = Integer.parseInt( splitMessage[1] );
+        
+        return "ACK";
     }
 
     protected String getPrimary() {

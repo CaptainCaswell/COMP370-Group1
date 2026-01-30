@@ -12,7 +12,7 @@ public class Client {
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
 
-    protected static final long HEARTBEAT_INTERVAL = 5000;
+    protected static final long HEARTBEAT_INTERVAL = 2000;
     protected static final long DATA_INTERVAL = 5000;
 
     // Constructor
@@ -77,12 +77,13 @@ public class Client {
 
             // Get monitor response
             String response = input.nextLine();
-            System.out.println( "Monitor response: " + response );
 
             if ( response.startsWith( "CURRENT_PRIMARY" ) ) {
                 setPrimary( Integer.parseInt( response.split( " " )[1] ) );
             } else if ( response.equals( "ACK" ) ) {
-                System.out.println( "Heartbeat not acknowledged." );
+                System.out.println( "Heartbeat acknowledged." );
+            } else if ( response.equals( "NONE" ) ) {
+                System.out.println( "No primary server availiable." );
             }
 
             input.close();
