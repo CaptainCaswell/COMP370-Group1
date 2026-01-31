@@ -1,20 +1,43 @@
 @echo off
 
+REM Compile all Java files
 javac ServerProcess.java
 javac Client.java
+javac Monitor.java
 
-start java ServerProcess
+REM Start Monitor
+start "MONITOR" java Monitor
 
-timeout /t 1
+REM Start first server with titled window
+start "SERVER1" java ServerProcess 2000
 
-:loop
+REM Start clients
+start "CLIENT1" java Client
+start "CLIENT2" java Client
 
-start java Client
+REM Wait 5 seconds
+timeout /t 5
 
-pause
+REM Start additional servers
+start "SERVER2"  java ServerProcess 3000
+start "SERVER3"  java ServerProcess 4000
 
-goto loop
+REM Wait 20 seconds before simulating crash
+timeout /t 20
 
-echo --- Program Done ---
+echo --- Killing Server 2000 ---
+taskkill /F /FI "WINDOWTITLE eq SERVER1"
+
+REM Wait 60 seconds
+timeout /t 60
+
+echo --- Simulation over ---
+
+REM Clean up all processes
+taskkill /F /FI "WINDOWTITLE eq SERVER2"
+taskkill /F /FI "WINDOWTITLE eq SERVER3"
+taskkill /F /FI "WINDOWTITLE eq MONITOR"
+taskkill /F /FI "WINDOWTITLE eq CLIENT1"
+taskkill /F /FI "WINDOWTITLE eq CLIENT2"
 
 pause
