@@ -28,7 +28,7 @@ public class Client {
 
     protected void start() throws Exception {
         // Start sending heartbeat
-        Thread heartbeatThread = new Thread(() ->{
+        Thread heartbeatThread = new Thread(() -> {
             try {
                 while ( running ) {
                     sendHeartbeat();
@@ -57,7 +57,7 @@ public class Client {
                 sendData( data );
             }
         
-        Thread.sleep( DATA_INTERVAL );
+            Thread.sleep( DATA_INTERVAL );
         }
     }
 
@@ -79,7 +79,7 @@ public class Client {
             } else if ( response.equals( "ACK" ) ) {
                 System.out.println( "Heartbeat acknowledged." );
             } else if ( response.equals( "NONE" ) ) {
-                System.out.println( "No primary server availiable." );
+                System.out.println( "No primary server available." );
             }
 
             input.close();

@@ -43,7 +43,7 @@ public class ServerProcess {
     // Start Basic Server
     public void start () throws IOException {
         // Start sending heartbeat
-        Thread heartbeatThread = new Thread(() ->{
+        Thread heartbeatThread = new Thread(() -> {
             try {
                 while ( running ) {
                     sendHeartbeat();
@@ -138,7 +138,7 @@ public class ServerProcess {
 
             toSum( number );
 
-            return "Sum sucessful. New sum: " + sum;
+            return "Sum successful. New sum: " + sum;
         } catch ( NumberFormatException e ) {
             return "Sum failed. Current sum: " + sum;
         }
