@@ -3,8 +3,11 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ServerProcess {
+    private ExecutorService threadPool = Executors.newCachedThreadPool();
     protected ServerSocket serverSocket;
     protected boolean running = true;
     protected static int nextID = 1;
@@ -68,7 +71,16 @@ public class ServerProcess {
             // Waits for client to connect
             Socket clientSocket = serverSocket.accept();
 
-            // If currently primary
+            // New thread for each client
+            threadPool.submit( () -> threadClient( clientSocket ) );
+        }
+
+        serverSocket.close();
+    }
+
+    protected void threadClient( Socket clientSocket ) {
+        try {
+            // If primary
             if ( getIsPrimary() ) {
                 // Set variables for socket input and output
                 Scanner input = new Scanner( clientSocket.getInputStream() );
@@ -88,20 +100,20 @@ public class ServerProcess {
                 clientSocket.close();
             }
 
-            // What a secondary server does
+            // If secondary
             else {
-                // Regect and log
+                // Reject and log
                 PrintStream output = new PrintStream( clientSocket.getOutputStream() );
                 output.println( "NOT_PRIMARY" );
                 output.close();
                 logger.log( "Rejected client connection as secondary" );
             }
-
+            
             clientSocket.close();
+
+        } catch ( IOException e) {
+            logger.log( "Error accepting client" );
         }
-
-        serverSocket.close();
-
     }
 
     protected void sendHeartbeat() {

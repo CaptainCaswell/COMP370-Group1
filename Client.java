@@ -105,9 +105,22 @@ public class Client {
                 output.println( data );
                 logger.log( "Sent " + Integer.toString( data ) );
 
-                // Display response from server
+                // Get response from server
                 String response = input.nextLine();
-                logger.log( "Server response: " + response );
+
+                // Check errors
+                if ( response.equals( "NOT_PRIMARY" ) ) {
+                    logger.log( "Data sent to secondary server, retrying" );
+
+                    input.close();
+                    output.close();
+                    socket.close();
+                    
+                    Thread.sleep( 1000 );
+                    continue;
+                }
+                
+                logger.log( "Server recieved data, output is " + response );
 
                 // Close things
                 input.close();
