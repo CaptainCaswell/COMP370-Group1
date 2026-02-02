@@ -3,10 +3,14 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Monitor {
+    private ExecutorService threadPool = Executors.newCachedThreadPool();
+
     protected ServerSocket serverSocket; // Socket for this program
     protected int port; // Port for this program
     protected boolean running = true; // Flag to keep while loop going
@@ -14,10 +18,12 @@ public class Monitor {
 
     protected int primaryServerID = 0; // Port for primary server
     protected int lastPrimarySum = 0; // Stores sum received from primary server
-    protected Map<Integer, ServerInfo> servers = new HashMap<>(); // Map of servers, ServerID is key
 
-    protected static final long INTERVAL = 1000; // Time between connection checks in milliseconds
-    protected static final long TIMEOUT = 5000; // Time to consider connection lost in milliseconds
+    protected Map<Integer, ServerInfo> servers = new HashMap<>(); // Map of servers, ServerID is key
+    protected Map<Integer, ClientInfo> clients = new HashMap<>(); // Map of servers, ServerID is key
+
+    protected static final long INTERVAL = 500; // Time between connection checks in milliseconds
+    protected static final long TIMEOUT = 1500; // Time to consider connection lost in milliseconds
 
     // Inner class to organize connection information
     protected static class ServerInfo {
@@ -33,6 +39,26 @@ public class Monitor {
 
         void updateHeartbeat( int sum ) {
             this.sum = sum;
+            this.lastHeartbeat = System.currentTimeMillis();
+        }
+
+        boolean isAlive() {
+            return (System.currentTimeMillis() - lastHeartbeat) < TIMEOUT;
+        }
+
+    }
+
+     protected static class ClientInfo {
+        int clientID;
+        int sum;
+        long lastHeartbeat;
+
+        ClientInfo( int clientID ) {
+            this.clientID = clientID;
+            this.lastHeartbeat = System.currentTimeMillis();
+        }
+
+        void updateHeartbeat( int sum ) {
             this.lastHeartbeat = System.currentTimeMillis();
         }
 
@@ -70,6 +96,14 @@ public class Monitor {
             // Waits for connection, returns socket when connected
             Socket incomingSocket = serverSocket.accept();
 
+            threadPool.submit( () -> threadHeartbeat( incomingSocket ) );
+        }
+
+        serverSocket.close();
+    }
+
+    protected void threadHeartbeat( Socket incomingSocket ) {
+        try {
             // Set variables for socket input and output
             Scanner input = new Scanner( incomingSocket.getInputStream() );
             PrintStream output = new PrintStream( incomingSocket.getOutputStream() );
@@ -84,9 +118,10 @@ public class Monitor {
             // Close things
             input.close();
             incomingSocket.close();
-        }
 
-        serverSocket.close();
+        } catch (IOException e ) {
+            logger.log( "Attempted heartbeat connection failed" );
+        }
     }
 
     protected boolean checkPrimary() {
@@ -176,7 +211,13 @@ public class Monitor {
         }
 
         int clientID = Integer.parseInt( splitMessage[1] );
-        // Save current clientIDs
+        
+        // Add server to map if not already added (first heartbeat)
+        if ( !clients.containsKey( clientID ) ) {
+            // Add server to map
+            ClientInfo newClient = new ClientInfo( clientID );
+            clients.put( clientID, newClient );
+        }
 
         return getPrimary();
     }

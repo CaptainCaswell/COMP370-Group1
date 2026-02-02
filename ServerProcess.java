@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 
 public class ServerProcess {
     private ExecutorService threadPool = Executors.newCachedThreadPool();
+
     protected ServerSocket serverSocket;
     protected boolean running = true;
     protected static int nextID = 1;
@@ -19,7 +20,7 @@ public class ServerProcess {
 
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
-    protected static final long HEARTBEAT_INTERVAL = 1000;
+    protected static final long HEARTBEAT_INTERVAL = 500;
 
     // Constructor
     public ServerProcess( int port) {

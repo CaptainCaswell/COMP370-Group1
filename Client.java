@@ -13,7 +13,7 @@ public class Client {
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
 
-    protected static final long HEARTBEAT_INTERVAL = 1000;
+    protected static final long HEARTBEAT_INTERVAL = 500;
     protected static final long DATA_INTERVAL = 5000;
 
     // Constructor
