@@ -12,6 +12,7 @@ public class Monitor {
     protected boolean running = true; // Flag to keep while loop going
 
     protected int primaryServerID = 0; // Port for primary server
+    protected int lastPrimarySum = 0; // Stores sum received from primary server
     protected Map<Integer, ServerInfo> servers = new HashMap<>(); // Map of servers, ServerID is key
 
     protected static final long INTERVAL = 2000; // Time between connection checks in milliseconds
@@ -136,7 +137,10 @@ public class Monitor {
 
         // If server is primary
         if ( primaryServerID == serverID ) {
-            type = "PRIMARY";
+            type = "PRIMARY " + lastPrimarySum;
+            if (sum >= lastPrimarySum) {
+                lastPrimarySum = sum;
+            }
         }
 
         // If server is secondary
@@ -229,8 +233,9 @@ public class Monitor {
         // If candidate found
         if ( candidateID != null ) {
             primaryServerID = candidateID;
-            System.out.println( "FAILOVER to Server " + primaryServerID + " on next heartbeat." );
-            // Need to update sum???
+            lastPrimarySum = oldSum;
+            System.out.println( "FAILOVER to Server " + primaryServerID + " with restored sum " + lastPrimarySum + " on next heartbeat." );
+            
         }
         
         // If no candidates

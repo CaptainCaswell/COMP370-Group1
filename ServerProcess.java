@@ -115,8 +115,16 @@ public class ServerProcess {
             // Get monitor response
             String response = input.nextLine();
 
-            if ( response.equals( "PRIMARY" ) && !getIsPrimary() ) {
+            if ( response.startsWith( "PRIMARY" ) && !getIsPrimary() ) {
                 promote();
+
+                // Get restored sum if monitor sent it
+                String[] parts = response.split(" ");
+                if (parts.length > 1) {
+                    int restoredSum = Integer.parseInt(parts[1]);
+                    setSum(restoredSum);
+                }
+
                 System.out.println( "Server promoted" );
             } else if ( response.equals( "ACK" ) || response.equals( "SECONDARY" ) ) {
                 System.out.println( "Heartbeat acknowledged." );
@@ -163,5 +171,12 @@ public class ServerProcess {
     protected synchronized int getSum() {
         return sum;
     }
+
+    // Set server sum to restored value
+    public synchronized void setSum(int restoredSum) {
+    this.sum = restoredSum;
+    System.out.println("--- Sum restored to " + sum + " ---");
+    }
+
 
 }
