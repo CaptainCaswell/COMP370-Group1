@@ -92,26 +92,34 @@ public class Client {
     }
 
     protected void sendData( int data ) throws Exception {
-        try {
-            // Setup Socket with input and output
-            Socket socket = new Socket( host, getPrimary() );
-            Scanner input = new Scanner( socket.getInputStream() );
-            PrintStream output = new PrintStream( socket.getOutputStream() );
+        boolean sent = false;
+        
+        while( !sent ) {
+            try {
+                // Setup Socket with input and output
+                Socket socket = new Socket( host, getPrimary() );
+                Scanner input = new Scanner( socket.getInputStream() );
+                PrintStream output = new PrintStream( socket.getOutputStream() );
 
-            // Send data
-            logger.log( "Sending the following to server: " + Integer.toString( data ) );
-            output.println( data );
+                // Send data
+                output.println( data );
+                logger.log( "Sent " + Integer.toString( data ) );
 
-            // Display response from server
-            String response = input.nextLine();
-            logger.log( "Server response: " + response );
+                // Display response from server
+                String response = input.nextLine();
+                logger.log( "Server response: " + response );
 
-            // Close things
-            input.close();
-            output.close();
-            socket.close();
-        } catch ( Exception e ) {
-            logger.log( "Sending data to " + getPrimary() + " failed" );
+                // Close things
+                input.close();
+                output.close();
+                socket.close();
+
+                // Mark sent to stop loop
+                sent = true;
+            } catch ( Exception e ) {
+                logger.log( "Sending data to " + getPrimary() + " failed" );
+                Thread.sleep( 1000 );
+            }
         }
     }
 
