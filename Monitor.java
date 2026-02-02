@@ -16,7 +16,7 @@ public class Monitor {
     protected int lastPrimarySum = 0; // Stores sum received from primary server
     protected Map<Integer, ServerInfo> servers = new HashMap<>(); // Map of servers, ServerID is key
 
-    protected static final long INTERVAL = 2000; // Time between connection checks in milliseconds
+    protected static final long INTERVAL = 1000; // Time between connection checks in milliseconds
     protected static final long TIMEOUT = 5000; // Time to consider connection lost in milliseconds
 
     // Inner class to organize connection information

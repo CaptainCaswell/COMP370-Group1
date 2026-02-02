@@ -13,7 +13,7 @@ public class Client {
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
 
-    protected static final long HEARTBEAT_INTERVAL = 2000;
+    protected static final long HEARTBEAT_INTERVAL = 1000;
     protected static final long DATA_INTERVAL = 5000;
 
     // Constructor
@@ -50,7 +50,6 @@ public class Client {
 
             if ( getPrimary() == 0 ) {
                 logger.log( "No know primary, requesting from monitor");
-                Thread.sleep( 3000 );
             }
 
             if ( getPrimary() == 0 ) {

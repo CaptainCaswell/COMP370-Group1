@@ -16,7 +16,7 @@ public class ServerProcess {
 
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
-    protected static final long HEARTBEAT_INTERVAL = 2000;
+    protected static final long HEARTBEAT_INTERVAL = 1000;
 
     // Constructor
     public ServerProcess( int port) {
@@ -65,12 +65,11 @@ public class ServerProcess {
         logger.log( "Server " + serverID + " started" );        
         
         while ( running ) {
-            
-            // What a primary server does
-            if ( getIsPrimary() ) {
-                // Waits for connection, returns socket when connected
-                Socket clientSocket = serverSocket.accept();
+            // Waits for client to connect
+            Socket clientSocket = serverSocket.accept();
 
+            // If currently primary
+            if ( getIsPrimary() ) {
                 // Set variables for socket input and output
                 Scanner input = new Scanner( clientSocket.getInputStream() );
                 PrintStream output = new PrintStream( clientSocket.getOutputStream() );
@@ -91,13 +90,14 @@ public class ServerProcess {
 
             // What a secondary server does
             else {
-                try {
-                    logger.log( "Waiting in standby mode..." );
-                    Thread.sleep( 1000 );
-                } catch ( InterruptedException e ) {
-                    break;
-                }
+                // Regect and log
+                PrintStream output = new PrintStream( clientSocket.getOutputStream() );
+                output.println( "NOT_PRIMARY" );
+                output.close();
+                logger.log( "Rejected client connection as secondary" );
             }
+
+            clientSocket.close();
         }
 
         serverSocket.close();
