@@ -8,6 +8,7 @@ public class Client {
 
     protected int primaryServerPort;
     protected boolean running = true;
+    protected Logger logger;
 
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
@@ -19,6 +20,7 @@ public class Client {
     public Client() {
         this.clientID = nextID;
         nextID++;
+        this.logger = new Logger( "client" + clientID + ".txt" );
     }
 
     public static void main ( String[] args ) throws Exception {
@@ -47,12 +49,12 @@ public class Client {
             int data = (int)(Math.random() * 100) + 1;
 
             if ( getPrimary() == 0 ) {
-                System.out.println( "Primary not found, requesting from monitor...");
-                // Request done by heartbeat
+                logger.log( "No know primary, requesting from monitor");
+                Thread.sleep( 3000 );
             }
 
             if ( getPrimary() == 0 ) {
-                System.out.println( "Unable to find primary. Retrying..." );
+                logger.log( "Unable to find primary. Retrying..." );
             } else {
                 sendData( data );
             }
@@ -77,16 +79,16 @@ public class Client {
             if ( response.startsWith( "CURRENT_PRIMARY" ) ) {
                 setPrimary( Integer.parseInt( response.split( " " )[1] ) );
             } else if ( response.equals( "ACK" ) ) {
-                System.out.println( "Heartbeat acknowledged." );
+                logger.log( "Heartbeat acknowledged." );
             } else if ( response.equals( "NONE" ) ) {
-                System.out.println( "No primary server available." );
+                logger.log( "No primary server available." );
             }
 
             input.close();
             output.close();
             socket.close();
         } catch ( Exception e ) {
-            System.out.println( "### Heartbeat failed ###" );
+            logger.log( "Heartbeat failed" );
         }
     }
 
@@ -98,20 +100,19 @@ public class Client {
             PrintStream output = new PrintStream( socket.getOutputStream() );
 
             // Send data
-            System.out.println( "Sending the following to server: " + Integer.toString( data ) );
+            logger.log( "Sending the following to server: " + Integer.toString( data ) );
             output.println( data );
 
             // Display response from server
             String response = input.nextLine();
-            System.out.println( "Server response: " + response );
+            logger.log( "Server response: " + response );
 
             // Close things
             input.close();
             output.close();
             socket.close();
         } catch ( Exception e ) {
-            System.out.println( "### Send data failed ###" );
-            System.out.println( "### Trying to send to " + getPrimary() + " ###" );
+            logger.log( "Sending data to " + getPrimary() + " failed" );
         }
     }
 

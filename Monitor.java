@@ -10,6 +10,7 @@ public class Monitor {
     protected ServerSocket serverSocket; // Socket for this program
     protected int port; // Port for this program
     protected boolean running = true; // Flag to keep while loop going
+    protected Logger logger;
 
     protected int primaryServerID = 0; // Port for primary server
     protected int lastPrimarySum = 0; // Stores sum received from primary server
@@ -21,13 +22,11 @@ public class Monitor {
     // Inner class to organize connection information
     protected static class ServerInfo {
         int serverID;
-        int port;
         int sum;
         long lastHeartbeat;
 
-        ServerInfo( int serverID, int port, int sum ) {
+        ServerInfo( int serverID, int sum ) {
             this.serverID = serverID;
-            this.port = port;
             this.sum = sum;
             this.lastHeartbeat = System.currentTimeMillis();
         }
@@ -46,6 +45,7 @@ public class Monitor {
     // Constructor
     public Monitor() {
         port = 9000;
+        this.logger = new Logger( "monitor.log" );
         failureDetector();
     }
     
@@ -60,9 +60,10 @@ public class Monitor {
         // Open socket
         serverSocket = new ServerSocket( port );
 
+        
+
         // Announce system running
-        System.out.println( " ---- MONITOR ---- " );
-        System.out.println( "Monitor started on port " + port );        
+        logger.log( "Monitor started on port " + port );        
         
         while ( running ) {
             
@@ -107,29 +108,31 @@ public class Monitor {
         return "ERROR";
     }
 
+    // Accepts server heartbeat, returns server type
     protected String serverHeartbeat( String message ) {
+        boolean isNew = false;
         // Message should be: SERVER_HEARTBEAT serverID port sum
         String[] splitMessage = message.split( " " );
 
-        if ( splitMessage.length != 4) {
+        if ( splitMessage.length != 3) {
             return "HEARTBEAT SYNTAX ERROR";
         }
 
         int serverID = Integer.parseInt( splitMessage[1] );
-        int serverPort = Integer.parseInt( splitMessage[2] );
-        int sum = Integer.parseInt( splitMessage[3] );
+        int sum = Integer.parseInt( splitMessage[2] );
 
         // Add server to map if not already added (first heartbeat)
         if ( !servers.containsKey( serverID ) ) {
             // Add server to map
-            ServerInfo newServer = new ServerInfo( serverID, serverPort, sum );
+            ServerInfo newServer = new ServerInfo( serverID, sum );
             servers.put( serverID, newServer );
+            isNew = true;
         }
         
         String type;
         
         // If no current primary, make primary
-        if ( primaryServerID == 0 ) primaryServerID = serverID;
+        if ( primaryServerID == 0 ) setPrimaryID( serverID );
 
         // Get server object
         ServerInfo server = servers.get( serverID );
@@ -137,10 +140,11 @@ public class Monitor {
 
         // If server is primary
         if ( primaryServerID == serverID ) {
-            type = "PRIMARY " + lastPrimarySum;
+            // Update latest sum
             if (sum >= lastPrimarySum) {
                 lastPrimarySum = sum;
             }
+            type = "PRIMARY";
         }
 
         // If server is secondary
@@ -148,7 +152,18 @@ public class Monitor {
             type = "SECONDARY";
         }
 
-        System.out.println( "Server " + serverID + " assigned as " + type + ".");
+        // If server new logging
+        if ( isNew ) {
+            logger.log( "Server " + serverID + " added. Currently " + type + ".");
+        }
+
+        // If server not new logging
+        else {
+            logger.log( type + " Server " + serverID + " heartbeat recieved" );
+        }
+
+        if ( type.equals( "PRIMARY" ) ) type += " " + lastPrimarySum;
+
         return type;
     }
 
@@ -166,13 +181,21 @@ public class Monitor {
         return getPrimary();
     }
 
-    protected String getPrimary() {
+    protected synchronized String getPrimary() {
         if (primaryServerID == 0 ) {
             return "NONE";
         } else {
             ServerInfo primary = servers.get( primaryServerID );
-            return "CURRENT_PRIMARY " + primary.port;
+            return "CURRENT_PRIMARY " + primary.serverID;
         }
+    }
+
+    protected synchronized void setPrimaryID( int newID ) {
+        primaryServerID = newID;
+    }
+
+    protected synchronized int getPrimaryID() {
+        return primaryServerID;
     }
 
     protected void failureDetector() {
@@ -195,7 +218,7 @@ public class Monitor {
         ServerInfo primary = servers.get( primaryServerID );
 
         if ( !primary.isAlive() ) {
-            System.out.println( "### PRIMARY FAILURE ###");
+            logger.log( "### PRIMARY FAILURE ###");
             
             servers.remove( primaryServerID );
 
@@ -206,7 +229,7 @@ public class Monitor {
             ServerInfo server = entry.getValue();
             // Only trim secondary dead servers
             if ( server.serverID != primaryServerID && !server.isAlive() ) {
-                System.out.println( "Secondary server " + server.serverID + " not responding. Removed from list." );
+                logger.log( "Secondary server " + server.serverID + " not responding. Removed from list." );
                 return true;
             }
 
@@ -234,14 +257,14 @@ public class Monitor {
         if ( candidateID != null ) {
             primaryServerID = candidateID;
             lastPrimarySum = oldSum;
-            System.out.println( "FAILOVER to Server " + primaryServerID + " with restored sum " + lastPrimarySum + " on next heartbeat." );
+            logger.log( "FAILOVER to Server " + primaryServerID + " with restored sum " + lastPrimarySum + " on next heartbeat." );
             
         }
         
         // If no candidates
         else {
             primaryServerID = 0;
-            System.out.println( "FAILOVER not possible. No servers available." );
+            logger.log( "FAILOVER not possible. No servers available." );
         }
     }
 

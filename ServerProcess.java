@@ -12,6 +12,7 @@ public class ServerProcess {
     protected boolean isPrimary;
     protected int serverID;
     protected int port;
+    protected Logger logger;
 
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
@@ -20,13 +21,13 @@ public class ServerProcess {
     // Constructor
     public ServerProcess( int port) {
         this.serverID = port;
-        this.port = port;
         nextID++;
         this.isPrimary = false;
+        this.logger = new Logger( "server" + port + ".log" );
     }
     
     // Main
-    public static void main( String[] args ) throws IOException {
+    public static void main( String[] args ) throws IOException, InterruptedException {
         
         if ( args.length != 1 ) {
             System.out.println( "Incorrect Syntax. Enter \"java ServerProcess <port>\"." );
@@ -41,7 +42,7 @@ public class ServerProcess {
     }
 
     // Start Basic Server
-    public void start () throws IOException {
+    public void start () throws IOException, InterruptedException {
         // Start sending heartbeat
         Thread heartbeatThread = new Thread(() -> {
             try {
@@ -58,10 +59,10 @@ public class ServerProcess {
         heartbeatThread.start();
 
         // Open socket
-        serverSocket = new ServerSocket( port );
+        serverSocket = new ServerSocket( serverID );
 
         // Announce system running
-        System.out.println( " ---- SERVER " + serverID + " ---- " );        
+        logger.log( "Server " + serverID + " started" );        
         
         while ( running ) {
             
@@ -79,7 +80,8 @@ public class ServerProcess {
                 
                 // Process and reply
                 String outgoingMessage = processMessage( clientMessage );
-                System.out.println( "Client sent: " + clientMessage + ". New sum is " + sum + "." );
+                logger.log( "Recieved " + clientMessage );
+                logger.log( "Sum updated to " + sum );
                 output.println( outgoingMessage );
 
                 // Close things
@@ -90,7 +92,7 @@ public class ServerProcess {
             // What a secondary server does
             else {
                 try {
-                    System.out.println( "Waiting in standby mode..." );
+                    logger.log( "Waiting in standby mode..." );
                     Thread.sleep( 1000 );
                 } catch ( InterruptedException e ) {
                     break;
@@ -110,7 +112,7 @@ public class ServerProcess {
             PrintStream output = new PrintStream( socket.getOutputStream() );
 
             // Request primary or send heartbeat
-            output.println( "SERVER_HEARTBEAT " + serverID + " " + port + " " + sum );
+            output.println( "SERVER_HEARTBEAT " + serverID + " " + sum );
 
             // Get monitor response
             String response = input.nextLine();
@@ -125,16 +127,16 @@ public class ServerProcess {
                     setSum(restoredSum);
                 }
 
-                System.out.println( "Server promoted" );
+                logger.log( "Server promoted" );
             } else if ( response.equals( "ACK" ) || response.equals( "SECONDARY" ) ) {
-                System.out.println( "Heartbeat acknowledged." );
+                logger.log( "Heartbeat acknowledged." );
             }
 
             input.close();
             output.close();
             socket.close();
         } catch ( Exception e ) {
-            System.out.println( "### Heartbeat failed ###" );
+            logger.log( "### Heartbeat failed ###" );
         }
     }
 
@@ -154,7 +156,6 @@ public class ServerProcess {
 
     public synchronized void promote() {
         isPrimary = true;
-        System.out.println( "--- System promoted ---" );
     }
 
 
@@ -174,8 +175,10 @@ public class ServerProcess {
 
     // Set server sum to restored value
     public synchronized void setSum(int restoredSum) {
-    this.sum = restoredSum;
-    System.out.println("--- Sum restored to " + sum + " ---");
+        if ( restoredSum != 0 ) { 
+            this.sum = restoredSum;
+            logger.log("Starting sum set to " + restoredSum );
+        }
     }
 
 

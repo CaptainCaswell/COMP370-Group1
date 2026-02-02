@@ -14,16 +14,8 @@ start "MONITOR" java Monitor
 
 REM Start clients
 start "CLIENT1" java Client
-start "CLIENT2" java Client
 
 REM Start first server with titled window
 start "SERVER1" java ServerProcess 2000
-
-REM Wait 5 seconds
-timeout /t 5
-
-REM Start additional servers
-start "SERVER2"  java ServerProcess 3000
-start "SERVER3"  java ServerProcess 4000
 
 pause
