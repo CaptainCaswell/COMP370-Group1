@@ -20,7 +20,7 @@ public class Client {
     public Client() {
         this.clientID = nextID;
         nextID++;
-        this.logger = new Logger( "client" + clientID + ".txt" );
+        this.logger = new Logger( "client" + clientID + ".log" );
     }
 
     public static void main ( String[] args ) throws Exception {
