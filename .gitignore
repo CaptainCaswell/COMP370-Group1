@@ -4,3 +4,4 @@ Monitor.class
 Monitor$ServerInfo.class
 Monitor$ClientInfo.class
 logs/
+bin/
