@@ -1,29 +1,23 @@
 @echo off
 
 REM Compile all Java files
-javac Server.java
-javac Client.java
-javac Monitor.java
-javac Logger.java
-
-REM Delete old logs
-rd /S /Q "log"
+javac -d bin Server.java Client.java Monitor.java Logger.java
 
 REM Start Monitor
-start "MONITOR" java Monitor
+start "MONITOR" java -cp bin Monitor
 
 REM Start clients
-start "CLIENT1" java Client
-start "CLIENT2" java Client
+start "CLIENT1" java -cp bin Client
+start "CLIENT2" java -cp bin Client
 
 REM Start first server with titled window
-start "SERVER1" java Server 2000
+start "SERVER1" java -cp bin Server 2000
 
 REM Wait 5 seconds
 timeout /t 5
 
 REM Start additional servers
-start "SERVER2"  java Server 3000
-start "SERVER3"  java Server 4000
+start "SERVER2"  java -cp bin Server 3000
+start "SERVER3"  java -cp bin Server 4000
 
 pause

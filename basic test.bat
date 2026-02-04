@@ -1,21 +1,18 @@
 @echo off
 
 REM Compile all Java files
-javac Server.java
-javac Client.java
-javac Monitor.java
-javac Logger.java
+javac -d bin Server.java Client.java Monitor.java Logger.java
 
 REM Delete old logs
 rd /S /Q "log"
 
 REM Start Monitor
-start "MONITOR" java Monitor
+start "MONITOR" java -cp bin Monitor
 
 REM Start clients
-start "CLIENT1" java Client
+start "CLIENT1" java -cp bin Client
 
 REM Start first server with titled window
-start "SERVER1" java Server 2000
+start "SERVER1" java -cp bin Server 2000
 
 pause
