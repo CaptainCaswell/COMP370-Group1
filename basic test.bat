@@ -1,7 +1,7 @@
 @echo off
 
 REM Compile all Java files
-javac ServerProcess.java
+javac Server.java
 javac Client.java
 javac Monitor.java
 javac Logger.java

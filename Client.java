@@ -96,8 +96,10 @@ public class Client {
         
         while( !sent ) {
             try {
+                int port = getPrimary();
+
                 // Setup Socket with input and output
-                Socket socket = new Socket( host, getPrimary() );
+                Socket socket = new Socket( host, port );
                 Scanner input = new Scanner( socket.getInputStream() );
                 PrintStream output = new PrintStream( socket.getOutputStream() );
 
@@ -119,8 +121,16 @@ public class Client {
                     Thread.sleep( 1000 );
                     continue;
                 }
+
+                // Check response for errors
+                if ( response.startsWith( "SUCCESS" ) ) {
+                    logger.log( "Server " + port + " recieved data, output is " + response );
+                } else if ( response.startsWith( "FAILED" ) ) {
+                    logger.log( "Data sent not integer" );
+                } else {
+                    logger.log( "Unknown response: " + response );
+                }
                 
-                logger.log( "Server recieved data, output is " + response );
 
                 // Close things
                 input.close();

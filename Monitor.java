@@ -197,9 +197,7 @@ public class Monitor {
             logger.log( type + " Server " + serverID + " heartbeat recieved" );
         }
 
-        if ( type.equals( "PRIMARY" ) ) type += " " + lastPrimarySum;
-
-        return type;
+        return type + lastPrimarySum;
     }
 
     protected String clientHeartbeat( String message ) {

@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ServerProcess {
+public class Server {
     private ExecutorService threadPool = Executors.newCachedThreadPool();
 
     protected ServerSocket serverSocket;
@@ -23,7 +23,7 @@ public class ServerProcess {
     protected static final long HEARTBEAT_INTERVAL = 500;
 
     // Constructor
-    public ServerProcess( int port) {
+    public Server( int port) {
         this.serverID = port;
         nextID++;
         this.isPrimary = false;
@@ -41,7 +41,7 @@ public class ServerProcess {
         int port = Integer.parseInt( args[0] );
         
         // Start server
-        ServerProcess server = new ServerProcess( port );
+        Server server = new Server( port );
         server.start();
     }
 
@@ -90,10 +90,10 @@ public class ServerProcess {
                 // Get input from client
                 String clientMessage = input.nextLine();
                 
-                // Process and reply
+                // Process message
                 String outgoingMessage = processMessage( clientMessage );
-                logger.log( "Recieved " + clientMessage );
-                logger.log( "Sum updated to " + sum );
+                
+                // Send reply
                 output.println( outgoingMessage );
 
                 // Close things
@@ -130,40 +130,87 @@ public class ServerProcess {
             // Get monitor response
             String response = input.nextLine();
 
-            if ( response.startsWith( "PRIMARY" ) && !getIsPrimary() ) {
-                promote();
+            // Break heartbeat into parts
+            String[] parts = response.split(" ");
+            String serverType = null;
+            int updateSum = -1;
 
-                // Get restored sum if monitor sent it
-                String[] parts = response.split(" ");
-                if (parts.length > 1) {
-                    int restoredSum = Integer.parseInt(parts[1]);
-                    setSum(restoredSum);
+            // Check proper number of parts
+            if (parts.length != 2) {
+                logger.log( "Unknown response to heartbeat: " + response );
+            }
+            
+            // Record parts
+            else {
+                serverType =parts[0]; 
+                updateSum = Integer.parseInt(parts[1]);
+                setSum( updateSum );
+            }
+            
+            // If PRIMARY recieved
+            if ( serverType.equals( "PRIMARY" )  ) {
+
+                // If not already primary
+                if ( !getIsPrimary() ) {
+                    promote();
+                    logger.log( "Server promoted" );
                 }
 
-                logger.log( "Server promoted" );
-            } else if ( response.equals( "ACK" ) || response.equals( "SECONDARY" ) ) {
-                logger.log( "Heartbeat acknowledged." );
+                // If already primary
+                else {
+                    logger.log( "Heartbeat acknowledged." );
+                }
+                
+            }
+            
+            // If SECONDARY recieved
+            else if ( serverType.equals( "SECONDARY" ) ) {
+                // Verify sum was is valid
+                if ( updateSum > 0 ) {
+                    // Update sum if sum is higher
+                    if ( updateSum > getSum() ) setSum( updateSum );
+                    
+                    logger.log( "Heartbeat acknowledged" );
+                }
+                
+                // Invalid sum
+                else {
+                    logger.log( "Heartbeat acknowledged but sum update was invalid" );
+                }
+            }
+
+            // Bad response
+            else {
+                logger.log( "Unknown response to heartbeat: " + response );
             }
 
             input.close();
             output.close();
             socket.close();
         } catch ( Exception e ) {
-            logger.log( "### Heartbeat failed ###" );
+            logger.log( "Heartbeat failed" );
         }
     }
 
     protected String processMessage( String clientMessage ) {
-        // If message can be cast to number
+        int newSum;
+
         try {
             // Sanitize and convert message to integer
             int number = Integer.parseInt( clientMessage.trim() );
 
-            toSum( number );
+            // Track new sum in case it is updated before sending
+            newSum = toSum( number );
 
-            return "Sum successful. New sum: " + sum;
+            logger.log( "Recieved " + clientMessage );
+            logger.log( "Sum updated to " + sum );
+
+            return "SUCCESS " + newSum;
         } catch ( NumberFormatException e ) {
-            return "Sum failed. Current sum: " + sum;
+            logger.log( "Invalid input from client" );
+
+            newSum = getSum();
+            return "FAILED " + newSum;
         }
     }
 
@@ -178,8 +225,9 @@ public class ServerProcess {
         return isPrimary;
     }
 
-    protected synchronized void toSum( int number ) {
+    protected synchronized int toSum( int number ) {
         sum += number;
+        return sum;
     }
 
     protected synchronized int getSum() {
