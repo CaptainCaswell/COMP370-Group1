@@ -23,28 +23,6 @@ public class Monitor {
     protected Map<Integer, NodeInfo> clients = new HashMap<>(); // Map of servers, ServerID is key
 
     protected static final long INTERVAL = 500; // Time between connection checks in milliseconds
-    protected static final long TIMEOUT = 1500; // Time to consider connection lost in milliseconds
-
-    // Inner class to organize connection information
-    protected static class NodeInfo {
-        int nodeID;
-        int sum;
-        long lastHeartbeat;
-
-        NodeInfo( int nodeID ) {
-            this.nodeID = nodeID;
-            this.lastHeartbeat = System.currentTimeMillis();
-        }
-
-        void updateHeartbeat( int sum ) {
-            this.lastHeartbeat = System.currentTimeMillis();
-        }
-
-        boolean isAlive() {
-            return (System.currentTimeMillis() - lastHeartbeat) < TIMEOUT;
-        }
-
-    }
 
     // Constructor
     public Monitor() {
@@ -167,7 +145,7 @@ public class Monitor {
 
         // If server new logging
         if ( isNew ) {
-            logger.log( "Server " + serverID + " added. Currently " + type + ".");
+            logger.log( "Server " + serverID + " added. Currently " + type + "");
         }
 
         // If server not new logging
@@ -239,14 +217,14 @@ public class Monitor {
             
             servers.remove( primaryServerID );
 
-            serverFailover( primary.sum );
+            serverFailover();
         }
 
         servers.entrySet().removeIf( entry -> {
             NodeInfo server = entry.getValue();
             // Only trim secondary dead servers
             if ( server.nodeID != primaryServerID && !server.isAlive() ) {
-                logger.log( "Secondary server " + server.nodeID + " not responding. Removed from list." );
+                logger.log( "Secondary server " + server.nodeID + " not responding. Removed from list" );
                 return true;
             }
 
@@ -254,7 +232,7 @@ public class Monitor {
         });
     }
 
-    protected void serverFailover( int oldSum ) {
+    protected void serverFailover( ) {
         Integer candidateID = null;
 
         // Find the lowest ID server (highest uptime)
@@ -273,15 +251,14 @@ public class Monitor {
         // If candidate found
         if ( candidateID != null ) {
             primaryServerID = candidateID;
-            lastPrimarySum = oldSum;
-            logger.log( "FAILOVER to Server " + primaryServerID + " with restored sum " + lastPrimarySum + " on next heartbeat." );
+            logger.log( "FAILOVER to Server " + primaryServerID + " with restored sum " + lastPrimarySum + " on next heartbeat" );
             
         }
         
         // If no candidates
         else {
             primaryServerID = 0;
-            logger.log( "FAILOVER not possible. No servers available." );
+            logger.log( "FAILOVER not possible - No servers available" );
         }
     }
 
