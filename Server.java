@@ -55,7 +55,7 @@ public class Server {
                     Thread.sleep( HEARTBEAT_INTERVAL );
                 }
             } catch ( Exception e ) {
-                e.printStackTrace();
+                logger.log( "Heartbeat thread error: " + e.getMessage() );
             }
         });
 
@@ -166,10 +166,10 @@ public class Server {
             // If SECONDARY recieved
             else if ( serverType.equals( "SECONDARY" ) ) {
                 // Verify sum was is valid
-                if ( updateSum > 0 ) {
+                if ( updateSum >= 0 ) {
                     // Update sum if sum is higher
-                    if ( updateSum > getSum() ) setSum( updateSum );
-                    
+                    setSum( updateSum );
+
                     logger.log( "Heartbeat acknowledged" );
                 }
                 
@@ -235,12 +235,10 @@ public class Server {
     }
 
     // Set server sum to restored value
-    public synchronized void setSum(int restoredSum) {
-        if ( restoredSum != 0 ) { 
-            this.sum = restoredSum;
-            logger.log("Starting sum set to " + restoredSum );
+    public synchronized void setSum(int newSum) {
+        if ( newSum != 0 && newSum > sum ) { 
+            this.sum = newSum;
+            logger.log("Sum set to " + newSum );
         }
     }
-
-
 }

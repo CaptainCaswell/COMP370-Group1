@@ -16,6 +16,6 @@ REM Start clients
 start "CLIENT1" java Client
 
 REM Start first server with titled window
-start "SERVER1" java ServerProcess 2000
+start "SERVER1" java Server 2000
 
 pause

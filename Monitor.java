@@ -19,42 +19,20 @@ public class Monitor {
     protected int primaryServerID = 0; // Port for primary server
     protected int lastPrimarySum = 0; // Stores sum received from primary server
 
-    protected Map<Integer, ServerInfo> servers = new HashMap<>(); // Map of servers, ServerID is key
-    protected Map<Integer, ClientInfo> clients = new HashMap<>(); // Map of servers, ServerID is key
+    protected Map<Integer, NodeInfo> servers = new HashMap<>(); // Map of servers, ServerID is key
+    protected Map<Integer, NodeInfo> clients = new HashMap<>(); // Map of servers, ServerID is key
 
     protected static final long INTERVAL = 500; // Time between connection checks in milliseconds
     protected static final long TIMEOUT = 1500; // Time to consider connection lost in milliseconds
 
     // Inner class to organize connection information
-    protected static class ServerInfo {
-        int serverID;
+    protected static class NodeInfo {
+        int nodeID;
         int sum;
         long lastHeartbeat;
 
-        ServerInfo( int serverID, int sum ) {
-            this.serverID = serverID;
-            this.sum = sum;
-            this.lastHeartbeat = System.currentTimeMillis();
-        }
-
-        void updateHeartbeat( int sum ) {
-            this.sum = sum;
-            this.lastHeartbeat = System.currentTimeMillis();
-        }
-
-        boolean isAlive() {
-            return (System.currentTimeMillis() - lastHeartbeat) < TIMEOUT;
-        }
-
-    }
-
-     protected static class ClientInfo {
-        int clientID;
-        int sum;
-        long lastHeartbeat;
-
-        ClientInfo( int clientID ) {
-            this.clientID = clientID;
+        NodeInfo( int nodeID ) {
+            this.nodeID = nodeID;
             this.lastHeartbeat = System.currentTimeMillis();
         }
 
@@ -159,7 +137,7 @@ public class Monitor {
         // Add server to map if not already added (first heartbeat)
         if ( !servers.containsKey( serverID ) ) {
             // Add server to map
-            ServerInfo newServer = new ServerInfo( serverID, sum );
+            NodeInfo newServer = new NodeInfo( serverID );
             servers.put( serverID, newServer );
             isNew = true;
         }
@@ -170,7 +148,7 @@ public class Monitor {
         if ( primaryServerID == 0 ) setPrimaryID( serverID );
 
         // Get server object
-        ServerInfo server = servers.get( serverID );
+        NodeInfo server = servers.get( serverID );
         server.updateHeartbeat( sum );
 
         // If server is primary
@@ -197,7 +175,7 @@ public class Monitor {
             logger.log( type + " Server " + serverID + " heartbeat recieved" );
         }
 
-        return type + lastPrimarySum;
+        return type + " " + lastPrimarySum;
     }
 
     protected String clientHeartbeat( String message ) {
@@ -213,7 +191,7 @@ public class Monitor {
         // Add server to map if not already added (first heartbeat)
         if ( !clients.containsKey( clientID ) ) {
             // Add server to map
-            ClientInfo newClient = new ClientInfo( clientID );
+            NodeInfo newClient = new NodeInfo( clientID );
             clients.put( clientID, newClient );
         }
 
@@ -224,8 +202,8 @@ public class Monitor {
         if (primaryServerID == 0 ) {
             return "NONE";
         } else {
-            ServerInfo primary = servers.get( primaryServerID );
-            return "CURRENT_PRIMARY " + primary.serverID;
+            NodeInfo primary = servers.get( primaryServerID );
+            return "CURRENT_PRIMARY " + primary.nodeID;
         }
     }
 
@@ -254,7 +232,7 @@ public class Monitor {
     }
 
     protected synchronized void checkFailures() {
-        ServerInfo primary = servers.get( primaryServerID );
+        NodeInfo primary = servers.get( primaryServerID );
 
         if ( !primary.isAlive() ) {
             logger.log( "### PRIMARY FAILURE ###");
@@ -265,10 +243,10 @@ public class Monitor {
         }
 
         servers.entrySet().removeIf( entry -> {
-            ServerInfo server = entry.getValue();
+            NodeInfo server = entry.getValue();
             // Only trim secondary dead servers
-            if ( server.serverID != primaryServerID && !server.isAlive() ) {
-                logger.log( "Secondary server " + server.serverID + " not responding. Removed from list." );
+            if ( server.nodeID != primaryServerID && !server.isAlive() ) {
+                logger.log( "Secondary server " + server.nodeID + " not responding. Removed from list." );
                 return true;
             }
 
@@ -280,14 +258,14 @@ public class Monitor {
         Integer candidateID = null;
 
         // Find the lowest ID server (highest uptime)
-        for ( Map.Entry<Integer, ServerInfo> entry : servers.entrySet() ) {
-            ServerInfo server = entry.getValue();
+        for ( Map.Entry<Integer, NodeInfo> entry : servers.entrySet() ) {
+            NodeInfo server = entry.getValue();
             
             // Check server is alive
             if ( server.isAlive() ) {
                 // If no current candidate or current candidate is higher
-                if ( candidateID == null || server.serverID < candidateID ) {
-                    candidateID = server.serverID;
+                if ( candidateID == null || server.nodeID < candidateID ) {
+                    candidateID = server.nodeID;
                 }
             }
         }
