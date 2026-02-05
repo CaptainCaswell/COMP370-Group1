@@ -15,16 +15,34 @@ public class Client {
 
     protected static final long HEARTBEAT_INTERVAL = 500;
     protected static final long DATA_INTERVAL = 5000;
+    protected static final int MAX_CLIENTS = 1000;
 
     // Constructor
-    public Client() {
-        this.clientID = nextID;
-        nextID++;
+    public Client( int clientID) {
+        this.clientID = clientID;
         this.logger = new Logger( "client" + clientID + ".log" );
     }
 
     public static void main ( String[] args ) throws Exception {
-        Client client = new Client();
+        // Confirm args is correct length
+        if ( args.length != 1 ) {
+            System.out.println( "Incorrect Syntax. Enter \"java ServerProcess <port>\"." );
+            return;
+        }
+
+        // Cast int and store
+        int clientID = Integer.parseInt( args[0] );
+
+        // Confirm clientID is in valid range
+        if ( clientID <= 0 || clientID >= MAX_CLIENTS ) {
+            System.out.println( "Invalid ClientID. Must be 1 - 999." );
+            return;
+        }
+
+        // Create new client instance
+        Client client = new Client( clientID );
+
+        // Start new client
         client.start();
     }
 

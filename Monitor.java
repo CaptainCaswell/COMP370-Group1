@@ -19,7 +19,7 @@ public class Monitor {
     protected int primaryServerID = 0; // Port for primary server
     protected int lastPrimarySum = 0; // Stores sum received from primary server
 
-    protected Map<Integer, NodeInfo> servers = new HashMap<>(); // Map of servers, ServerID is key
+    protected Map<Integer, ServerInfo> servers = new HashMap<>(); // Map of servers, ServerID is key
     protected Map<Integer, NodeInfo> clients = new HashMap<>(); // Map of servers, ServerID is key
 
     protected static final long INTERVAL = 500; // Time between connection checks in milliseconds
@@ -32,8 +32,16 @@ public class Monitor {
     }
     
     public static void main( String[] args ) throws IOException {
-        // Start server
+        // Create monitor instance
         Monitor monitor = new Monitor();
+
+        // Launch UI
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            MonitorUI ui = new MonitorUI(monitor);
+            ui.setVisible(true);
+        });
+
+        // Start monitor
         monitor.start();
     }
 
@@ -41,8 +49,6 @@ public class Monitor {
     public void start() throws IOException {
         // Open socket
         serverSocket = new ServerSocket( port );
-
-        
 
         // Announce system running
         logger.log( "Monitor started on port " + port );        
@@ -115,7 +121,7 @@ public class Monitor {
         // Add server to map if not already added (first heartbeat)
         if ( !servers.containsKey( serverID ) ) {
             // Add server to map
-            NodeInfo newServer = new NodeInfo( serverID );
+            ServerInfo newServer = new ServerInfo( serverID );
             servers.put( serverID, newServer );
             isNew = true;
         }
@@ -125,8 +131,8 @@ public class Monitor {
         // If no current primary, make primary
         if ( primaryServerID == 0 ) setPrimaryID( serverID );
 
-        // Get server object
-        NodeInfo server = servers.get( serverID );
+        // Get server object and update it
+        ServerInfo server = servers.get( serverID );
         server.updateHeartbeat( sum );
 
         // If server is primary
@@ -173,6 +179,10 @@ public class Monitor {
             clients.put( clientID, newClient );
         }
 
+        // Get client object and update it
+        NodeInfo client = clients.get( clientID );
+        client.updateHeartbeat();
+
         return getPrimary();
     }
 
@@ -191,6 +201,18 @@ public class Monitor {
 
     protected synchronized int getPrimaryID() {
         return primaryServerID;
+    }
+
+    protected synchronized int getPrimarySum() {
+        return lastPrimarySum;
+    }
+
+    protected synchronized Map<Integer,ServerInfo> getServers() {
+        return servers;
+    }
+
+    protected synchronized Map<Integer,NodeInfo> getClients() {
+        return clients;
     }
 
     protected void failureDetector() {
@@ -236,7 +258,7 @@ public class Monitor {
         Integer candidateID = null;
 
         // Find the lowest ID server (highest uptime)
-        for ( Map.Entry<Integer, NodeInfo> entry : servers.entrySet() ) {
+        for ( Map.Entry<Integer, ServerInfo> entry : servers.entrySet() ) {
             NodeInfo server = entry.getValue();
             
             // Check server is alive
@@ -261,5 +283,4 @@ public class Monitor {
             logger.log( "FAILOVER not possible - No servers available" );
         }
     }
-
 }

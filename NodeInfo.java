@@ -11,7 +11,7 @@ public class NodeInfo {
     }
 
     // Update heartbeat
-    public void updateHeartbeat(int sum) {
+    public void updateHeartbeat() {
         this.lastHeartbeat = System.currentTimeMillis();
     }
 
