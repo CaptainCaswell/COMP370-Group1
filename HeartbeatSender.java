@@ -22,6 +22,7 @@ public class HeartbeatSender implements Runnable {
     public void run() {
         while (true) {
             try {
+                HeartbeatDelay();
                 sendOneHeartbeat();
                 Thread.sleep(intervalMs);
             } catch (InterruptedException ie) {
@@ -85,4 +86,21 @@ public class HeartbeatSender implements Runnable {
             }
         }
     }
+
+    // Heartbeat delay for Servers IDs in the range 
+    private void HeartbeatDelay() {
+        try {
+            int serverID = state.getServerId();   
+
+            if (serverID >= 1000 && serverID <= 2000) {
+                long delay = 1000;
+                logger.log("Simulating heartbeat delay of " + delay + "ms for server " + serverID);
+                Thread.sleep(delay);
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    
 }
