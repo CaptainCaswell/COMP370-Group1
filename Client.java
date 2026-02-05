@@ -10,6 +10,8 @@ public class Client {
     protected boolean running = true;
     protected Logger logger;
 
+    protected ClientHeartbeatSender heartbeatSender;
+
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
 
@@ -21,12 +23,15 @@ public class Client {
     public Client( int clientID) {
         this.clientID = clientID;
         this.logger = new Logger( "client" + clientID + ".log" );
+
+        // Create heartbeat sender component
+        this.heartbeatSender = new ClientHeartbeatSender( clientID, this, logger );
     }
 
     public static void main ( String[] args ) throws Exception {
         // Confirm args is correct length
         if ( args.length != 1 ) {
-            System.out.println( "Incorrect Syntax. Enter \"java ServerProcess <port>\"." );
+            System.out.println( "Incorrect Syntax. Enter \"java Client <number>\"." );
             return;
         }
 
@@ -48,16 +53,7 @@ public class Client {
 
     protected void start() throws Exception {
         // Start sending heartbeat
-        Thread heartbeatThread = new Thread(() -> {
-            try {
-                while ( running ) {
-                    sendHeartbeat();
-                    Thread.sleep( HEARTBEAT_INTERVAL );
-                }
-            } catch ( Exception e ) {
-                e.printStackTrace();
-            }
-        });
+        Thread heartbeatThread = new Thread( heartbeatSender );
 
         heartbeatThread.setDaemon( true );
         heartbeatThread.start();
@@ -77,35 +73,6 @@ public class Client {
             }
         
             Thread.sleep( DATA_INTERVAL );
-        }
-    }
-
-    protected void sendHeartbeat() {
-        try {
-            // Setup Socket with input and output
-            Socket socket = new Socket( host, monitorPort );
-            Scanner input = new Scanner( socket.getInputStream() );
-            PrintStream output = new PrintStream( socket.getOutputStream() );
-
-            // Request primary or send heartbeat
-            output.println( "CLIENT_HEARTBEAT " + clientID );
-
-            // Get monitor response
-            String response = input.nextLine();
-
-            if ( response.startsWith( "CURRENT_PRIMARY" ) ) {
-                setPrimary( Integer.parseInt( response.split( " " )[1] ) );
-            } else if ( response.equals( "ACK" ) ) {
-                logger.log( "Heartbeat acknowledged." );
-            } else if ( response.equals( "NONE" ) ) {
-                logger.log( "No primary server available." );
-            }
-
-            input.close();
-            output.close();
-            socket.close();
-        } catch ( Exception e ) {
-            logger.log( "Heartbeat failed" );
         }
     }
 
@@ -148,7 +115,6 @@ public class Client {
                 } else {
                     logger.log( "Unknown response: " + response );
                 }
-                
 
                 // Close things
                 input.close();
@@ -173,5 +139,4 @@ public class Client {
             primaryServerPort = port;
         }
     }
-
 }

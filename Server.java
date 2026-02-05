@@ -18,6 +18,8 @@ public class Server {
     protected int port;
     protected Logger logger;
 
+    protected ServerHeartbeatSender heartbeatSender;
+
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
     protected static final long HEARTBEAT_INTERVAL = 500;
@@ -28,13 +30,16 @@ public class Server {
         nextID++;
         this.isPrimary = false;
         this.logger = new Logger( "server" + port + ".log" );
+
+        // Create heartbeat sender
+        this.heartbeatSender = new ServerHeartbeatSender( serverID, this, logger );
     }
     
     // Main
     public static void main( String[] args ) throws IOException, InterruptedException {
         
         if ( args.length != 1 ) {
-            System.out.println( "Incorrect Syntax. Enter \"java ServerProcess <port>\"." );
+            System.out.println( "Incorrect Syntax. Enter \"java Server <port>\"." );
             return;
         }
 
@@ -47,18 +52,8 @@ public class Server {
 
     // Start Basic Server
     public void start () throws IOException, InterruptedException {
-        // Start sending heartbeat
-        Thread heartbeatThread = new Thread(() -> {
-            try {
-                while ( running ) {
-                    sendHeartbeat();
-                    Thread.sleep( HEARTBEAT_INTERVAL );
-                }
-            } catch ( Exception e ) {
-                logger.log( "Heartbeat thread error: " + e.getMessage() );
-            }
-        });
-
+        // Start seperate thread for heartbeat
+        Thread heartbeatThread = new Thread( heartbeatSender );
         heartbeatThread.setDaemon( true );
         heartbeatThread.start();
 
@@ -117,81 +112,6 @@ public class Server {
         }
     }
 
-    protected void sendHeartbeat() {
-        try {
-            // Setup Socket with input and output
-            Socket socket = new Socket( host, monitorPort );
-            Scanner input = new Scanner( socket.getInputStream() );
-            PrintStream output = new PrintStream( socket.getOutputStream() );
-
-            // Request primary or send heartbeat
-            output.println( "SERVER_HEARTBEAT " + serverID + " " + sum );
-
-            // Get monitor response
-            String response = input.nextLine();
-
-            // Break heartbeat into parts
-            String[] parts = response.split(" ");
-            String serverType = null;
-            int updateSum = -1;
-
-            // Check proper number of parts
-            if (parts.length != 2) {
-                logger.log( "Unknown response to heartbeat: " + response );
-            }
-            
-            // Record parts
-            else {
-                serverType =parts[0]; 
-                updateSum = Integer.parseInt(parts[1]);
-                setSum( updateSum );
-            }
-            
-            // If PRIMARY recieved
-            if ( serverType.equals( "PRIMARY" )  ) {
-
-                // If not already primary
-                if ( !getIsPrimary() ) {
-                    promote();
-                    logger.log( "Server promoted" );
-                }
-
-                // If already primary
-                else {
-                    logger.log( "Heartbeat acknowledged." );
-                }
-                
-            }
-            
-            // If SECONDARY recieved
-            else if ( serverType.equals( "SECONDARY" ) ) {
-                // Verify sum was is valid
-                if ( updateSum >= 0 ) {
-                    // Update sum if sum is higher
-                    setSum( updateSum );
-
-                    logger.log( "Heartbeat acknowledged" );
-                }
-                
-                // Invalid sum
-                else {
-                    logger.log( "Heartbeat acknowledged but sum update was invalid" );
-                }
-            }
-
-            // Bad response
-            else {
-                logger.log( "Unknown response to heartbeat: " + response );
-            }
-
-            input.close();
-            output.close();
-            socket.close();
-        } catch ( Exception e ) {
-            logger.log( "Heartbeat failed" );
-        }
-    }
-
     protected String processMessage( String clientMessage ) {
         int newSum;
 
@@ -218,10 +138,8 @@ public class Server {
         isPrimary = true;
     }
 
-
-
     protected synchronized boolean getIsPrimary() {
-        // Should ask monitor is there is a primary already
+        // Should ask monitor is there is a primary already ???
         return isPrimary;
     }
 
