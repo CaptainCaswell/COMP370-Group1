@@ -18,7 +18,7 @@ public class MonitorCore {
     private int primaryServerID = 0;
     private int lastPrimarySum = 0;
 
-    private final Map<Integer, NodeInfo> servers = new HashMap<>();
+    private final Map<Integer, ServerInfo> servers = new HashMap<>();
     private final Map<Integer, NodeInfo> clients = new HashMap<>();
 
     private static final long FAILURE_CHECK_INTERVAL_MS = 500;
@@ -72,13 +72,13 @@ public class MonitorCore {
         int sum = Integer.parseInt(split[2]);
 
         if (!servers.containsKey(serverID)) {
-            servers.put(serverID, new NodeInfo(serverID));
+            servers.put(serverID, new ServerInfo(serverID));
             isNew = true;
         }
 
         if (primaryServerID == 0) primaryServerID = serverID;
 
-        NodeInfo server = servers.get(serverID);
+        ServerInfo server = servers.get(serverID);
         server.updateHeartbeat(sum);
 
         String type;
@@ -149,7 +149,7 @@ public class MonitorCore {
     private synchronized void serverFailover() {
         Integer candidateID = null;
 
-        for (Map.Entry<Integer, NodeInfo> entry : servers.entrySet()) {
+        for (Map.Entry<Integer, ServerInfo> entry : servers.entrySet()) {
             NodeInfo server = entry.getValue();
             if (server.isAlive()) {
                 if (candidateID == null || server.nodeID < candidateID) {
@@ -178,5 +178,21 @@ public class MonitorCore {
         try {
             if (serverSocket != null) serverSocket.close();
         } catch (IOException ignored) {}
+    }
+
+    public synchronized int getPrimarySum() {
+        return lastPrimarySum;
+    }
+
+    public synchronized Map<Integer,ServerInfo> getServers() {
+        return servers;
+    }
+
+    public synchronized Map<Integer,NodeInfo> getClients() {
+        return clients;
+    }
+
+    protected synchronized int getPrimaryID() {
+        return primaryServerID;
     }
 }
