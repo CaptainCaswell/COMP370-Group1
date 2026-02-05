@@ -1,7 +1,7 @@
 @echo off
 
 REM Compile all Java files
-javac -d bin Server.java Client.java Monitor.java Logger.java MonitorUI.java
+javac -d bin *.java
 
 REM Delete old logs
 rd /S /Q "log"

@@ -1,8 +1,6 @@
 import java.io.IOException;
-import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.HashMap;
@@ -19,8 +17,8 @@ public class Monitor {
     protected int primaryServerID = 0; // Port for primary server
     protected int lastPrimarySum = 0; // Stores sum received from primary server
 
-    protected Map<Integer, ServerInfo> servers = new HashMap<>(); // Map of servers, ServerID is key
-    protected Map<Integer, NodeInfo> clients = new HashMap<>(); // Map of servers, ServerID is key
+    protected Map<Integer, ServerInfo> servers = new HashMap<>(); // Map of servers, serverID is key
+    protected Map<Integer, NodeInfo> clients = new HashMap<>(); // Map of clients, clientID is key
 
     protected static final long INTERVAL = 500; // Time between connection checks in milliseconds
 
@@ -54,36 +52,13 @@ public class Monitor {
         logger.log( "Monitor started on port " + port );        
         
         while ( running ) {
-            
             // Waits for connection, returns socket when connected
             Socket incomingSocket = serverSocket.accept();
 
-            threadPool.submit( () -> threadHeartbeat( incomingSocket ) );
+            threadPool.submit( new HeartbeatProcess( incomingSocket, this, logger ) );
         }
 
         serverSocket.close();
-    }
-
-    protected void threadHeartbeat( Socket incomingSocket ) {
-        try {
-            // Set variables for socket input and output
-            Scanner input = new Scanner( incomingSocket.getInputStream() );
-            PrintStream output = new PrintStream( incomingSocket.getOutputStream() );
-
-            // Get input from client
-            String message = input.nextLine();
-            
-            // Process and reply
-            String outgoingMessage = processRequest( message );
-            output.println( outgoingMessage );
-
-            // Close things
-            input.close();
-            incomingSocket.close();
-
-        } catch (IOException e ) {
-            logger.log( "Attempted heartbeat connection failed" );
-        }
     }
 
     protected boolean checkPrimary() {
@@ -91,7 +66,6 @@ public class Monitor {
     }
 
     protected synchronized String processRequest( String message ) {
-
         // Server
         if ( message.startsWith( "SERVER_HEARTBEAT") ) {
             return serverHeartbeat( message );

@@ -18,11 +18,10 @@ public class Server {
     protected int port;
     protected Logger logger;
 
-    protected ServerHeartbeatSender heartbeatSender;
+    protected HeartbeatSenderServer heartbeatSender;
 
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
-    protected static final long HEARTBEAT_INTERVAL = 500;
 
     // Constructor
     public Server( int port) {
@@ -32,7 +31,7 @@ public class Server {
         this.logger = new Logger( "server" + port + ".log" );
 
         // Create heartbeat sender
-        this.heartbeatSender = new ServerHeartbeatSender( serverID, this, logger );
+        this.heartbeatSender = new HeartbeatSenderServer( serverID, this, logger );
     }
     
     // Main

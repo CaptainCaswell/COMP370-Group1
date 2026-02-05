@@ -10,12 +10,11 @@ public class Client {
     protected boolean running = true;
     protected Logger logger;
 
-    protected ClientHeartbeatSender heartbeatSender;
+    protected HeartbeatSenderClient heartbeatSender;
 
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
 
-    protected static final long HEARTBEAT_INTERVAL = 500;
     protected static final long DATA_INTERVAL = 5000;
     protected static final int MAX_CLIENTS = 1000;
 
@@ -25,7 +24,7 @@ public class Client {
         this.logger = new Logger( "client" + clientID + ".log" );
 
         // Create heartbeat sender component
-        this.heartbeatSender = new ClientHeartbeatSender( clientID, this, logger );
+        this.heartbeatSender = new HeartbeatSenderClient( clientID, this, logger );
     }
 
     public static void main ( String[] args ) throws Exception {
