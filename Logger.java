@@ -6,9 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Logger {
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat( "yyy-MM-dd HH:mm:ss.SSS" );
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss.SSS" );
     private PrintWriter fileWriter;
     private String logFileName;
+    private static MonitorUI monitorUI= null;
 
     // Constructor
     public Logger( String logFileName ) {
@@ -23,6 +24,11 @@ public class Logger {
         } catch ( IOException e ) {
             System.err.println( "Failed to create log: " + this.logFileName );
         }
+    }
+
+    // Attach logger to UI
+    public static void setMonitorUI( MonitorUI ui ) {
+        monitorUI = ui;
     }
 
     // Create timestamp
@@ -40,6 +46,12 @@ public class Logger {
         // Output to file if fileWriter working
         if (fileWriter != null ) {
             fileWriter.println( timestampedMessage );
+        }
+
+        // Confirm UI has been set
+        if ( monitorUI != null ) {
+            // Output to MonitorUI
+            monitorUI.addLogMessage ( timestampedMessage );
         }
     }
 

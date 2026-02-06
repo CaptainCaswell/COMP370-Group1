@@ -34,9 +34,10 @@ public class Monitor {
         Monitor monitor = new Monitor();
 
         // Launch UI
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            MonitorUI ui = new MonitorUI(monitor);
-            ui.setVisible(true);
+        javax.swing.SwingUtilities.invokeLater( () -> {
+            MonitorUI ui = new MonitorUI( monitor );
+            Logger.setMonitorUI( ui );
+            ui.setVisible( true );
         });
 
         // Start monitor

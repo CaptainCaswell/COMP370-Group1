@@ -199,6 +199,10 @@ public class MonitorUI extends JFrame {
         sumLabel.setText(String.valueOf(monitor.getPrimarySum()));
         killPrimaryButton.setEnabled(primaryID != 0);
 
+        // Save current selections
+        int selectedSecondaryIndex = secondaryList.getSelectedIndex();
+        int selectedClientIndex = clientList.getSelectedIndex();
+
         // Update secondary servers
         secondaryListModel.clear();
         for (NodeInfo server : monitor.getServers().values()) {
@@ -213,6 +217,15 @@ public class MonitorUI extends JFrame {
         for (NodeInfo client : monitor.getClients().values()) {
             String status = client.isAlive() ? "ALIVE" : "TIMEOUT";
             clientListModel.addElement("Client " + client.nodeID + " - " + status);
+        }
+
+        // Restore selections if still valid
+        if (selectedSecondaryIndex >= 0 && selectedSecondaryIndex < secondaryListModel.size()) {
+            secondaryList.setSelectedIndex(selectedSecondaryIndex);
+        }
+
+        if (selectedClientIndex >= 0 && selectedClientIndex < clientListModel.size()) {
+            clientList.setSelectedIndex(selectedClientIndex);
         }
 
         // Optional: update logs from monitor if you keep a recent log list
@@ -281,8 +294,16 @@ public class MonitorUI extends JFrame {
     }
 
     private void log(String message) {
-        String timestamp = new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
-        logArea.append("[" + timestamp + "] " + message + "\n");
-        logArea.setCaretPosition(logArea.getDocument().getLength());
+        // String timestamp = new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+        // logArea.append("[" + timestamp + "] " + message + "\n");
+        // logArea.setCaretPosition(logArea.getDocument().getLength());
+    }
+
+    public void addLogMessage( String message ) {
+        SwingUtilities.invokeLater(() -> {
+            String timestamp = new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+            logArea.append("[" + timestamp + "] " + message + "\n");
+            logArea.setCaretPosition(logArea.getDocument().getLength());
+        });
     }
 }
