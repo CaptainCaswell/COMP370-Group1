@@ -12,6 +12,9 @@ public class HeartbeatSenderServer extends HeartbeatSender {
     protected void sendHeartbeat() {
         withSocket( ( input, output ) -> {
             output.println( "SERVER_HEARTBEAT " + serverID + " " + server.getSum() );
+
+            logger.log( "Heartbeat sent" );
+            
             String response = input.nextLine();
             String[] parts = response.split( " " );
 
@@ -38,6 +41,11 @@ public class HeartbeatSenderServer extends HeartbeatSender {
                     }
                     break;
                 case "SECONDARY":
+                    // Check if server thinks it is primary
+                    if ( server.getIsPrimary() ) {
+                        server.demote();
+                    }
+
                     // Check if sum is valid
                     if (updateSum >= 0) {
                         server.setSum( updateSum );

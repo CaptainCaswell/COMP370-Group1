@@ -25,7 +25,7 @@ public class HeartbeatProcess implements Runnable {
             String message = input.nextLine();
             
             // Process and reply
-            String outgoingMessage = monitor.processRequest( message );
+            String outgoingMessage = monitor.processHeartbeat( message );
             output.println( outgoingMessage );
 
             // Close things

@@ -7,6 +7,6 @@ REM Delete old logs
 rd /S /Q "log"
 
 REM Start Monitor
-start "MONITOR" java -cp bin Monitor
+start "MONITOR" java -cp bin Monitor ui
 
 pause

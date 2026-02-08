@@ -16,7 +16,7 @@ public class Client {
     protected static final int monitorPort = 9000;
 
     protected static final long DATA_INTERVAL = 5000;
-    protected static final int MAX_CLIENTS = 1000;
+    protected static final int MAX_CLIENTS = 1999;
 
     // Constructor
     public Client( int clientID) {
@@ -38,8 +38,8 @@ public class Client {
         int clientID = Integer.parseInt( args[0] );
 
         // Confirm clientID is in valid range
-        if ( clientID <= 0 || clientID >= MAX_CLIENTS ) {
-            System.out.println( "Invalid ClientID. Must be 1 - 999." );
+        if ( clientID <= 0 || clientID > MAX_CLIENTS ) {
+            System.out.println( "Invalid ClientID. Must be 1 - 1999." );
             return;
         }
 
@@ -57,17 +57,26 @@ public class Client {
         heartbeatThread.setDaemon( true );
         heartbeatThread.start();
 
+        logger.log( "Client " + clientID + " started" );
+
         while ( running ) {
             // Get random number from 1-100
             int data = (int)(Math.random() * 100) + 1;
 
-            if ( getPrimary() == 0 ) {
-                logger.log( "No know primary, requesting from monitor");
-            }
+            int primaryID = getPrimary();
 
-            if ( getPrimary() == 0 ) {
-                logger.log( "Unable to find primary. Retrying..." );
-            } else {
+            // Check if known primary
+            if ( primaryID == 0 ) {
+                logger.log( "No know primary" );
+            }
+            
+            // Check valid range
+            else if ( primaryID < 2000 || primaryID > 9999 ) {
+                logger.log( "Invalid primary ID" );
+            }
+            
+            // Check
+            else {
                 sendData( data );
             }
         
@@ -108,7 +117,7 @@ public class Client {
 
                 // Check response for errors
                 if ( response.startsWith( "SUCCESS" ) ) {
-                    logger.log( "Server " + port + " recieved data, output is " + response );
+                    logger.log( "Server " + port + " recieved data, output is " + response, 1 );
                 } else if ( response.startsWith( "FAILED" ) ) {
                     logger.log( "Data sent not integer" );
                 } else {
@@ -133,9 +142,12 @@ public class Client {
         return primaryServerPort;
     }
 
-    protected synchronized void setPrimary(int port) {
+    protected synchronized boolean setPrimary(int port) {
         if ( primaryServerPort != port ) {
             primaryServerPort = port;
+            return true;
         }
+
+        return false;
     }
 }

@@ -36,24 +36,35 @@ public class Logger {
         return "[" + dateFormat.format( new Date() ) + "] ";
     }
 
-    // Log message
+    // Log message without level
     public void log( String message ) {
+        // Default to logging to console and logfile
+        log( message, 2 );
+    }
+
+    // Log message with level
+    public void log( String message, int logLevel ) {
         String timestampedMessage = getTimeStamp() + message;
         
-        // Output to console
-        System.out.println( timestampedMessage );
+        switch ( logLevel ) {
+            // MonitorUI
+            case 3:
+                if ( monitorUI != null ) monitorUI.addLogMessage ( timestampedMessage );
+            
+            // File
+            case 2:
+                if (fileWriter != null ) fileWriter.println( timestampedMessage );
+            
+            // Console
+            case 1:
+                System.out.println( timestampedMessage );
 
-        // Output to file if fileWriter working
-        if (fileWriter != null ) {
-            fileWriter.println( timestampedMessage );
-        }
-
-        // Confirm UI has been set
-        if ( monitorUI != null ) {
-            // Output to MonitorUI
-            monitorUI.addLogMessage ( timestampedMessage );
+            // No log
+            case 0:
+                break;
         }
     }
+
 
     public void close() {
         if ( fileWriter != null ) {

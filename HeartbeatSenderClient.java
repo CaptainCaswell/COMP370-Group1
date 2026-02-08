@@ -12,22 +12,29 @@ public class HeartbeatSenderClient extends HeartbeatSender {
     protected void sendHeartbeat() {
         withSocket( ( input, output ) -> {
             output.println( "CLIENT_HEARTBEAT " + clientID );
+
+            logger.log( "Heartbeat sent" );
+
             String response = input.nextLine();
 
-            switch ( response ) {
-                case "ACK":
-                    logger.log( "Heartbeat acknowledged." );
-                    break;
-                case "NONE":
-                    logger.log( "No primary server available." );
-                    break;
-                default:
-                    if (response.startsWith( "CURRENT_PRIMARY" )) {
-                        client.setPrimary( Integer.parseInt( response.split( " " )[1] ) );
+            // If monitor reports no primary
+            if ( response.equals( "NONE" ) ) {
+                logger.log( "No primary server available." );
+            }
+            
+            // Check other monitor responses
+            else {
+                if (response.startsWith( "CURRENT_PRIMARY" )) {
+                    // Check if primary is new
+                    if ( client.setPrimary( Integer.parseInt( response.split( " " )[1] ) ) ) {
+                        logger.log( "New primary found, switching" );
                     } else {
-                        logger.log( "Unknown response: " + response );
+                        logger.log( "Heartbeat acknowledged" );
                     }
-                    break;
+                    
+                } else {
+                    logger.log( "Unknown response: " + response );
+                }
             }
         });
     }

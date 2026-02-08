@@ -22,6 +22,7 @@ public class Server {
 
     protected static final String host = "localhost";
     protected static final int monitorPort = 9000;
+    protected static final int MAX_SERVERS = 9999;
 
     // Constructor
     public Server( int port) {
@@ -135,10 +136,15 @@ public class Server {
 
     public synchronized void promote() {
         isPrimary = true;
+        logger.log( "Server promoted to primary" );
+    }
+
+    public synchronized void demote() {
+        isPrimary = false;
+        logger.log( "Server demoted to secondary" );
     }
 
     protected synchronized boolean getIsPrimary() {
-        // Should ask monitor is there is a primary already ???
         return isPrimary;
     }
 
