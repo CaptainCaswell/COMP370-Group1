@@ -9,7 +9,9 @@ public abstract class HeartbeatSender implements Runnable {
     protected static final long HEARTBEAT_INTERVAL = 500;
 
     protected final Logger logger;
-    protected volatile boolean running = true;
+
+    protected boolean running = true;
+    protected long heartbeatDelay = 0;
 
     public HeartbeatSender(Logger logger) {
         this.logger = logger;
@@ -40,6 +42,15 @@ public abstract class HeartbeatSender implements Runnable {
              Scanner input = new Scanner(socket.getInputStream());
              PrintStream output = new PrintStream(socket.getOutputStream())) {
 
+            // Sleep if delay is set
+            if (heartbeatDelay > 0 ) {
+                // Delay
+                Thread.sleep( heartbeatDelay );
+
+                // Increment delay
+                setHeartbeatDelay( heartbeatDelay + 100L );
+            }
+
             action.perform(input, output);
 
         } catch (Exception e) {
@@ -51,5 +62,9 @@ public abstract class HeartbeatSender implements Runnable {
     @FunctionalInterface
     protected interface SocketAction {
         void perform( Scanner input, PrintStream output ) throws Exception;
+    }
+
+    public void setHeartbeatDelay( long delay) {
+        this.heartbeatDelay = delay;
     }
 }

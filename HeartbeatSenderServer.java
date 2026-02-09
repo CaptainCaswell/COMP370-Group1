@@ -16,6 +16,13 @@ public class HeartbeatSenderServer extends HeartbeatSender {
             logger.log( "Heartbeat sent" );
             
             String response = input.nextLine();
+
+            // Check for shutdown command
+            if ( response.equals( "SHUTDOWN" ) ) {
+                logger.log( "Shutdown command recieved, closing..." );
+                server.shutdown();
+            }
+
             String[] parts = response.split( " " );
 
             // Check if correct number of parts

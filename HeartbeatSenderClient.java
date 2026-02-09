@@ -17,6 +17,12 @@ public class HeartbeatSenderClient extends HeartbeatSender {
 
             String response = input.nextLine();
 
+            // Check for shutdown command
+            if ( response.equals( "SHUTDOWN" ) ) {
+                logger.log( "Shutdown command recieved, closing..." );
+                client.shutdown();
+            }
+
             // If monitor reports no primary
             if ( response.equals( "NONE" ) ) {
                 logger.log( "No primary server available." );

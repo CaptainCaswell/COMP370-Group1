@@ -29,13 +29,15 @@ public class Client {
 
     public static void main ( String[] args ) throws Exception {
         // Confirm args is correct length
-        if ( args.length != 1 ) {
-            System.out.println( "Incorrect Syntax. Enter \"java Client <number>\"." );
+        if ( args.length < 1 || args.length > 2 ) {
+            System.out.println( "Incorrect Syntax. Enter \"java Client <number> [heartbeat delay]\"." );
             return;
         }
 
         // Cast int and store
         int clientID = Integer.parseInt( args[0] );
+
+        
 
         // Confirm clientID is in valid range
         if ( clientID <= 0 || clientID > MAX_CLIENTS ) {
@@ -45,6 +47,19 @@ public class Client {
 
         // Create new client instance
         Client client = new Client( clientID );
+
+        // Get heartbeat delay for testing
+        long heartbeatDelay = 0;
+        
+        if ( args.length == 2 ) {
+            // Cast delay to long
+            long delay = Long.parseLong( args[1] );
+
+            // Update delay is valid
+            if ( delay > 0 ) {
+                client.heartbeatSender.setHeartbeatDelay( delay );
+            }
+        }
 
         // Start new client
         client.start();
@@ -133,6 +148,8 @@ public class Client {
                 sent = true;
             } catch ( Exception e ) {
                 logger.log( "Sending data to " + getPrimary() + " failed" );
+                
+                // Wait before retry
                 Thread.sleep( 1000 );
             }
         }
@@ -149,5 +166,11 @@ public class Client {
         }
 
         return false;
+    }
+
+    public void shutdown() {
+        heartbeatSender.stop();
+        running = false;
+        System.exit( 0 );
     }
 }

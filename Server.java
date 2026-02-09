@@ -38,8 +38,8 @@ public class Server {
     // Main
     public static void main( String[] args ) throws IOException, InterruptedException {
         
-        if ( args.length != 1 ) {
-            System.out.println( "Incorrect Syntax. Enter \"java Server <port>\"." );
+        if ( args.length < 1 || args.length > 2 ) {
+            System.out.println( "Incorrect Syntax. Enter \"java Server <port> [heartbeat delay]\"." );
             return;
         }
 
@@ -47,6 +47,20 @@ public class Server {
         
         // Start server
         Server server = new Server( port );
+
+        // Get heartbeat delay for testing
+        long heartbeatDelay = 0;
+        
+        if ( args.length == 2 ) {
+            // Cast delay to long
+            long delay = Long.parseLong( args[1] );
+
+            // Update delay is valid
+            if ( delay > 0 ) {
+                server.heartbeatSender.setHeartbeatDelay( delay );
+            }
+        }
+
         server.start();
     }
 
@@ -163,5 +177,11 @@ public class Server {
             this.sum = newSum;
             logger.log("Sum set to " + newSum );
         }
+    }
+
+    public void shutdown() {
+        heartbeatSender.stop();
+        running = false;
+        System.exit( 0 );
     }
 }

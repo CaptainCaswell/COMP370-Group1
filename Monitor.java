@@ -120,6 +120,20 @@ public class Monitor {
 
             // Get server object and update it
             ServerInfo server = servers.get( id );
+
+            // Send shutdown if flagged
+            if ( server.checkShutdown() ) {
+                logger.log( "Server " + id + " shutdown requested", 3 );
+                servers.remove( id );
+
+                // If sending shutdown to primary
+                if ( primaryServerID == id ) {
+                    serverFailover();
+                }
+
+                return "SHUTDOWN";
+            }
+
             server.updateHeartbeat( sum );
 
             // If server is primary
@@ -160,12 +174,18 @@ public class Monitor {
             NodeInfo client = clients.get( id );
             client.updateHeartbeat();
 
+            // Send shutdown if flagged
+            if ( client.checkShutdown() ) {
+                logger.log( "Client " + id + " shutdown requested", 3 );
+                clients.remove( id );
+                return "SHUTDOWN";
+            }
+
             returnMessage = getPrimary();
         }
 
-        logger.log( ( (expectedArgs == 2) ? "Client " : "Server " ) + id + " heartbeat recieved", 2 );
-
         if ( returnMessage != null) {
+            logger.log( ( (expectedArgs == 2) ? "Client " : "Server " ) + id + " heartbeat recieved", 2 );
             return returnMessage;
         } else {
             logger.log( "No heartbeat return from input: " + message, 2 );
@@ -227,39 +247,41 @@ public class Monitor {
             if ( primary != null && !primary.isAlive() ) {
                 logger.log( "Primary server " + primaryServerID + " not responding, Removing and triggering failover", 3 );
                 
-                servers.remove( primaryServerID );
+                // Flag for needing to be shut down
+                primary.setShutdown();
 
+                // Remove from map of servers
+                //servers.remove( primaryServerID );
+
+                // Failover to get new primary
                 serverFailover();
             }
         }   
 
         // Check secondary failures
-        servers.entrySet().removeIf( entry -> {
+        for ( Map.Entry<Integer, ServerInfo> entry : servers.entrySet() ) {
             NodeInfo server = entry.getValue();
 
             // Only trim secondary dead servers
             if ( server.nodeID != primaryServerID && !server.isAlive() ) {
                 logger.log( "Secondary server " + server.nodeID + " not responding, removed from list", 3 );
-                return true;
-            }
 
-            return false;
-        });
+                // Flag for needing to be shut down
+                server.setShutdown();
+            }
+        };
 
         // Check client failures
-        clients.entrySet().removeIf( entry -> {
+        for ( Map.Entry<Integer, NodeInfo> entry : clients.entrySet() ) {
             NodeInfo client = entry.getValue();
 
             if ( !client.isAlive() ) {
                 logger.log( "Client " + client.nodeID + " not responding, removed from list", 3 );
                 
-                // Trim
-                return true;
+                // Flag for needing to be shut down
+                client.setShutdown();
             }
-
-            // Don't trim
-            return false;
-        });
+        };
     }
 
     protected void serverFailover( ) {
