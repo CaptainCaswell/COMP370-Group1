@@ -36,7 +36,7 @@ public class MonitorUI extends JFrame {
     private JScrollPane logScrollPane;
 
     // Auto-increment port for new nodes
-    private int nextServerID = 2000;
+    private int nextServerID = 2001;
     private int nextClientID = 1;
 
     public MonitorUI(Monitor monitor) {
@@ -191,12 +191,14 @@ public class MonitorUI extends JFrame {
         panel.setBorder(border);
         panel.setBackground(new Color(248, 249, 250));
 
+        String[] scenarioNames = { "Normal Operation", "Primary Crash", "Backup Crash", "Simultaneous failures", "Network Delay Simulation", "Recovery" };
+
         // Placeholder buttons for 6 scenarios
         for (int i = 1; i <= 6; i++) {
-            JButton scenarioButton = new JButton("Scenario " + i);
+            JButton scenarioButton = new JButton( scenarioNames[i - 1] );
             styleButton(scenarioButton, new Color(0, 123, 255));
             final int scenarioNum = i;
-            scenarioButton.addActionListener(e -> runScenario(scenarioNum));
+            scenarioButton.addActionListener(e -> runScenario( scenarioNum ));
             panel.add(scenarioButton);
         }
 
@@ -408,27 +410,186 @@ public class MonitorUI extends JFrame {
         }
     }
 
-    private void runScenario(int scenarioNum) {
-        // Placeholder for scenario execution
-        log("Running Scenario " + scenarioNum + " - Not yet implemented");
+    private void killServerByID(int serverID) {
+    Process p = serverProcesses.get(serverID);
+    if (p != null && p.isAlive()) {
+        p.destroy();
+        log("Server " + serverID + " killed");
+    } else {
+        log("Server " + serverID + " not found");
+    }
+}
+
+    private void closeAll() {
+        // Kill all client processes
+        for (Map.Entry<Integer, Process> entry : clientProcesses.entrySet()) {
+            Process p = entry.getValue();
+            if (p != null && p.isAlive()) {
+                p.destroy();
+                log("Client " + entry.getKey() + " terminated");
+            }
+        }
+        clientProcesses.clear();
         
-        // You'll implement these scenarios later
-        // Example structure:
-        // switch (scenarioNum) {
-        //     case 1:
-        //         // Scenario 1 logic
-        //         break;
-        //     case 2:
-        //         // Scenario 2 logic
-        //         break;
-        //     // etc.
-        // }
+        // Kill all server processes
+        for (Map.Entry<Integer, Process> entry : serverProcesses.entrySet()) {
+            Process p = entry.getValue();
+            if (p != null && p.isAlive()) {
+                p.destroy();
+                log("Server " + entry.getKey() + " terminated");
+            }
+        }
+        serverProcesses.clear();
+        
+        log("All nodes closed");
+    }
+
+    private void startNodes( String type, int num, long pause ) {
+        try {
+            for (int i = 1; i <= num; i++ ){
+                if ( type.equals( "server" ) ) {
+                    startSecondaryServer( 0 );
+                } else if ( type.equals( "client" ) ) {
+                    startClient( 0 );
+                } else {
+                    log( "Unknown node type");
+                }
+                
+                Thread.sleep( pause );
+                }
+        } catch (InterruptedException e ) {
+            log( "Scenario failed due to thread error" );
+        } 
+    }
+
+    private void runScenario( int scenarioNum ) {
+
+        // Thread to run scenario
+        Thread scenarioThread = new Thread( () -> {
+            try {
+                log( "Prepping for scenario, closing all nodes");
+                closeAll();
+
+                // Wait to confirm everything closed
+                Thread.sleep( 6000 );
+
+                // Reset numbering
+                nextServerID = 2001;
+                nextClientID = 1;
+
+                log("Running Scenario " + scenarioNum );
+                
+                switch ( scenarioNum ) {
+                    case 1: // Normal
+                        // Start 3 servers
+                        startNodes( "server", 3, 1000 );
+
+                        // Start 3 clients
+                        startNodes( "client", 3, 1000 );
+
+                        break;
+                    case 2: // Primary crash
+                        // Start 3 servers
+                        startNodes( "server", 3, 1000 );
+
+                        // Start 3 clients
+                        startNodes( "client", 3, 1000 );
+
+                        // Let everything run for 10 seconds
+                        Thread.sleep( 10000 );
+
+                        // Crash primary
+                        log( "Killing primary server..." );
+                        killPrimary();
+                        break;
+                    case 3: // Backup crash
+                        // Start 3 servers
+                        startNodes( "server", 3, 1000 );
+
+                        // Start 3 clients
+                        startNodes( "client", 3, 1000 );
+
+                        // Let everything run for 10 seconds
+                        Thread.sleep( 10000 );
+
+                        // Crash backup
+                        log( "Killing server 2002" );
+                        killServerByID( 2002 );
+
+                        break;
+                    case 4: // Simultanious failures
+                        // Start 3 servers
+                        startNodes( "server", 3, 1000 );
+
+                        // Start 3 clients
+                        startNodes( "client", 3, 1000 );
+
+                        // Let everything run for 10 seconds
+                        Thread.sleep( 10000 );
+
+                        // Crash primary and backup
+                        log( "Killing primary and server 2001" );
+                        killPrimary();
+                        killServerByID( 2002 );
+
+                        break;
+                    case 5: // Network Delay
+                        log( "Starting server 2001 as slow" );
+                        // Start slow server
+                        startSecondaryServer( 100 );
+
+                        // Start slow client
+                        log( "Starting client 1 as slow" );
+                        startClient( 100 );
+                        Thread.sleep( 500 );
+                    
+                        // Start 3 servers
+                        startNodes( "server", 3, 250 );
+
+                        // Start 3 clients
+                        startNodes( "client", 3, 250 );
+
+                        break;
+                    case 6: // Recovery
+                        // Start 3 servers
+                        startNodes( "server", 3, 1000 );
+
+                        // Start 3 clients
+                        startNodes( "client", 3, 1000 );
+
+                        // Let everything run for 10 seconds
+                        Thread.sleep( 10000 );
+
+                        // Crash all servers
+                        log( "Killing all servers" );
+                        killPrimary();
+                        killServerByID( 2002 );
+                        killServerByID( 2003 );
+
+                        // Let everything run for 10 seconds
+                        Thread.sleep( 10000 );
+
+                        // Start 3 servers
+                        startNodes( "server", 3, 1000 );
+
+                        break;
+                    default:
+                        log( "Invalid scenario selected" );
+                }
+            } catch ( InterruptedException e ) {
+                log( "Scenario failed due to thread error" );
+                Thread.currentThread().interrupt();
+            }
+        });
+
+        scenarioThread.setDaemon( true );
+        scenarioThread.start();
     }
 
     private void log(String message) {
         // This method is for internal UI logs
         SwingUtilities.invokeLater(() -> {
-            String timestamp = new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+            String timestamp = "UI LOG";
             logArea.append("[" + timestamp + "] " + message + "\n");
             logArea.setCaretPosition(logArea.getDocument().getLength());
         });

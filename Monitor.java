@@ -256,7 +256,7 @@ public class Monitor {
         }   
 
         // Check secondary failures
-        for ( Map.Entry<Integer, ServerInfo> entry : servers.entrySet() ) {
+        servers.entrySet().removeIf( entry -> {
             NodeInfo server = entry.getValue();
 
             // Only trim secondary dead servers
@@ -268,14 +268,15 @@ public class Monitor {
 
                 // Check for stale entries that are not primary
                 if ( server.isStale() && server.nodeID != primaryServerID ) {
-                    servers.remove( server.nodeID );
                     logger.log( "Secondary server " + server.nodeID + " was stale, removed from list", 3 );
+                    return true;
                 }
             }
-        };
+            return false;
+        });
 
         // Check client failures
-        for ( Map.Entry<Integer, NodeInfo> entry : clients.entrySet() ) {
+        clients.entrySet().removeIf( entry -> {
             NodeInfo client = entry.getValue();
 
             if ( !client.isAlive() ) {
@@ -287,13 +288,14 @@ public class Monitor {
 
             // Check for stale entries that are not primary
             if ( client.isStale() ) {
-                clients.remove( client.nodeID );
                 logger.log( "Client " + client.nodeID + " was stale, removed from list", 3 );
+                return true;
             }
-        };
+            return false;
+        });
     }
 
-    protected void serverFailover( ) {
+    protected synchronized void serverFailover( ) {
         Integer candidateID = null;
 
         // Find the lowest ID server (highest uptime)

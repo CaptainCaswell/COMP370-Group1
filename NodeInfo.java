@@ -4,7 +4,7 @@ public class NodeInfo {
     protected boolean shutdown = false;
 
     protected static final long TIMEOUT = 1500;
-    protected static final long PURGE_TIMEOUT = 5000;
+    protected static final long STALE_TIMEOUT = 5000;
 
 
     // Constructor
@@ -24,7 +24,7 @@ public class NodeInfo {
     }
 
     public boolean isStale() {
-        return (System.currentTimeMillis() - lastHeartbeat) > PURGE_TIMEOUT;
+        return (System.currentTimeMillis() - lastHeartbeat) > STALE_TIMEOUT;
     }
 
     public void setShutdown() {
