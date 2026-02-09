@@ -151,7 +151,7 @@ public class MonitorUI extends JFrame {
 
     private JPanel createSecondaryPanel() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
-        TitledBorder border = new TitledBorder("Secondary Servers");
+        TitledBorder border = new TitledBorder("Servers");
         border.setTitleFont(new Font("Arial", Font.BOLD, 13));
         panel.setBorder(border);
 
@@ -258,12 +258,11 @@ public class MonitorUI extends JFrame {
 
         // Update secondary servers
         secondaryListModel.clear();
-        for (NodeInfo server : monitor.getServers().values()) {
-            if (server.nodeID != primaryID) {
-                String status = server.isAlive() ? "ALIVE" : "TIMEOUT";
-                String item = "Server " + server.nodeID + " - " + status;
-                secondaryListModel.addElement(item);
-            }
+        for (ServerInfo server : monitor.getServers().values()) {
+            String type = server.nodeID == primaryID ? "PRIMARY" : "SECONDARY";
+            String status = server.isAlive() ? "ALIVE" : "TIMEOUT";
+            String item = "Server " + server.nodeID + " - " + type + " - " + status + " - SUM: " + server.getSum();
+            secondaryListModel.addElement(item);
         }
 
         // Update clients
