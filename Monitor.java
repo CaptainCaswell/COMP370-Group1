@@ -245,13 +245,10 @@ public class Monitor {
             NodeInfo primary = servers.get( primaryServerID );
 
             if ( primary != null && !primary.isAlive() ) {
-                logger.log( "Primary server " + primaryServerID + " not responding, Removing and triggering failover", 3 );
+                logger.log( "Primary server " + primaryServerID + " not responding, triggering failover", 3 );
                 
                 // Flag for needing to be shut down
                 primary.setShutdown();
-
-                // Remove from map of servers
-                //servers.remove( primaryServerID );
 
                 // Failover to get new primary
                 serverFailover();
@@ -264,10 +261,16 @@ public class Monitor {
 
             // Only trim secondary dead servers
             if ( server.nodeID != primaryServerID && !server.isAlive() ) {
-                logger.log( "Secondary server " + server.nodeID + " not responding, removed from list", 3 );
+                logger.log( "Secondary server " + server.nodeID + " not responding", 3 );
 
                 // Flag for needing to be shut down
                 server.setShutdown();
+
+                // Check for stale entries that are not primary
+                if ( server.isStale() && server.nodeID != primaryServerID ) {
+                    servers.remove( server.nodeID );
+                    logger.log( "Secondary server " + server.nodeID + " was stale, removed from list", 3 );
+                }
             }
         };
 
@@ -276,10 +279,16 @@ public class Monitor {
             NodeInfo client = entry.getValue();
 
             if ( !client.isAlive() ) {
-                logger.log( "Client " + client.nodeID + " not responding, removed from list", 3 );
+                logger.log( "Client " + client.nodeID + " not responding", 3 );
                 
                 // Flag for needing to be shut down
                 client.setShutdown();
+            }
+
+            // Check for stale entries that are not primary
+            if ( client.isStale() ) {
+                clients.remove( client.nodeID );
+                logger.log( "Client " + client.nodeID + " was stale, removed from list", 3 );
             }
         };
     }

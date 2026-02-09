@@ -3,7 +3,9 @@ public class NodeInfo {
     public long lastHeartbeat;
     protected boolean shutdown = false;
 
-    public static final long TIMEOUT = 1500;
+    protected static final long TIMEOUT = 1500;
+    protected static final long PURGE_TIMEOUT = 5000;
+
 
     // Constructor
     public NodeInfo(int nodeID) {
@@ -19,6 +21,10 @@ public class NodeInfo {
     // Check if node is alive
     public boolean isAlive() {
         return (System.currentTimeMillis() - lastHeartbeat) < TIMEOUT;
+    }
+
+    public boolean isStale() {
+        return (System.currentTimeMillis() - lastHeartbeat) > PURGE_TIMEOUT;
     }
 
     public void setShutdown() {
