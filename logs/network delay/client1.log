@@ -1,0 +1,78 @@
+[2026-02-09 17:06:31.109] Client 1 started
+[2026-02-09 17:06:31.111] No know primary
+[2026-02-09 17:06:31.255] Heartbeat sent
+[2026-02-09 17:06:31.257] New primary found, switching
+[2026-02-09 17:06:31.961] Heartbeat sent
+[2026-02-09 17:06:31.962] Heartbeat acknowledged
+[2026-02-09 17:06:32.765] Heartbeat sent
+[2026-02-09 17:06:32.765] Heartbeat acknowledged
+[2026-02-09 17:06:33.670] Heartbeat sent
+[2026-02-09 17:06:33.670] Heartbeat acknowledged
+[2026-02-09 17:06:34.675] Heartbeat sent
+[2026-02-09 17:06:34.675] Heartbeat acknowledged
+[2026-02-09 17:06:35.778] Heartbeat sent
+[2026-02-09 17:06:35.779] Heartbeat acknowledged
+[2026-02-09 17:06:36.113] Sent 47
+[2026-02-09 17:06:36.982] Heartbeat sent
+[2026-02-09 17:06:36.982] Heartbeat acknowledged
+[2026-02-09 17:06:38.287] Heartbeat sent
+[2026-02-09 17:06:38.288] Heartbeat acknowledged
+[2026-02-09 17:06:39.691] Heartbeat sent
+[2026-02-09 17:06:39.691] Heartbeat acknowledged
+[2026-02-09 17:06:41.196] Heartbeat sent
+[2026-02-09 17:06:41.196] Heartbeat acknowledged
+[2026-02-09 17:06:41.824] Sent 75
+[2026-02-09 17:06:42.389] Sending data to 2001 failed
+[2026-02-09 17:06:42.799] Heartbeat sent
+[2026-02-09 17:06:42.799] New primary found, switching
+[2026-02-09 17:06:43.390] Sent 75
+[2026-02-09 17:06:44.503] Heartbeat sent
+[2026-02-09 17:06:44.503] Heartbeat acknowledged
+[2026-02-09 17:06:46.307] Heartbeat sent
+[2026-02-09 17:06:46.308] Shutdown command recieved, closing...
+[2026-02-09 17:27:01.499] Client 1 started
+[2026-02-09 17:27:01.501] No know primary
+[2026-02-09 17:27:01.641] Heartbeat sent
+[2026-02-09 17:27:01.644] New primary found, switching
+[2026-02-09 17:27:02.299] Heartbeat sent
+[2026-02-09 17:27:02.299] Heartbeat acknowledged
+[2026-02-09 17:27:03.003] Heartbeat sent
+[2026-02-09 17:27:03.004] Heartbeat acknowledged
+[2026-02-09 17:27:03.757] Heartbeat sent
+[2026-02-09 17:27:03.757] Heartbeat acknowledged
+[2026-02-09 17:27:04.561] Heartbeat sent
+[2026-02-09 17:27:04.562] Heartbeat acknowledged
+[2026-02-09 17:27:05.416] Heartbeat sent
+[2026-02-09 17:27:05.417] Heartbeat acknowledged
+[2026-02-09 17:27:06.319] Heartbeat sent
+[2026-02-09 17:27:06.320] Heartbeat acknowledged
+[2026-02-09 17:27:06.503] Sent 15
+[2026-02-09 17:27:07.272] Heartbeat sent
+[2026-02-09 17:27:07.273] Heartbeat acknowledged
+[2026-02-09 17:27:08.277] Heartbeat sent
+[2026-02-09 17:27:08.277] Heartbeat acknowledged
+[2026-02-09 17:27:09.330] Heartbeat sent
+[2026-02-09 17:27:09.331] Heartbeat acknowledged
+[2026-02-09 17:27:10.435] Heartbeat sent
+[2026-02-09 17:27:10.436] Heartbeat acknowledged
+[2026-02-09 17:27:11.515] Sent 94
+[2026-02-09 17:27:11.588] Heartbeat sent
+[2026-02-09 17:27:11.588] Heartbeat acknowledged
+[2026-02-09 17:27:12.791] Heartbeat sent
+[2026-02-09 17:27:12.791] Heartbeat acknowledged
+[2026-02-09 17:27:14.046] Heartbeat sent
+[2026-02-09 17:27:14.046] Heartbeat acknowledged
+[2026-02-09 17:27:15.349] Heartbeat sent
+[2026-02-09 17:27:15.350] Heartbeat acknowledged
+[2026-02-09 17:27:16.520] Sent 71
+[2026-02-09 17:27:16.702] Heartbeat sent
+[2026-02-09 17:27:16.702] Heartbeat acknowledged
+[2026-02-09 17:27:18.106] Heartbeat sent
+[2026-02-09 17:27:18.107] Heartbeat acknowledged
+[2026-02-09 17:27:19.560] Heartbeat sent
+[2026-02-09 17:27:19.561] Heartbeat acknowledged
+[2026-02-09 17:27:21.065] Heartbeat sent
+[2026-02-09 17:27:21.065] Heartbeat acknowledged
+[2026-02-09 17:27:21.525] Sent 29
+[2026-02-09 17:27:22.618] Heartbeat sent
+[2026-02-09 17:27:22.618] Shutdown command recieved, closing...

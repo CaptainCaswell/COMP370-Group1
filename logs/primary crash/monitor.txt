@@ -1,0 +1,578 @@
+[2026-02-09 14:16:00.366] Monitor started on port 9000
+[2026-02-09 14:16:08.948] Server 2001 added
+[2026-02-09 14:16:08.950] Server 2001 added, currently PRIMARY
+[2026-02-09 14:16:08.950] Server 2001 heartbeat recieved
+[2026-02-09 14:16:09.456] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:09.456] Server 2001 heartbeat recieved
+[2026-02-09 14:16:09.951] Server 2002 added
+[2026-02-09 14:16:09.952] Server 2002 added, currently SECONDARY
+[2026-02-09 14:16:09.952] Server 2002 heartbeat recieved
+[2026-02-09 14:16:09.960] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:09.960] Server 2001 heartbeat recieved
+[2026-02-09 14:16:10.457] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:10.457] Server 2002 heartbeat recieved
+[2026-02-09 14:16:10.462] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:10.462] Server 2001 heartbeat recieved
+[2026-02-09 14:16:10.958] Server 2003 added
+[2026-02-09 14:16:10.958] Server 2003 added, currently SECONDARY
+[2026-02-09 14:16:10.959] Server 2003 heartbeat recieved
+[2026-02-09 14:16:10.963] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:10.963] Server 2002 heartbeat recieved
+[2026-02-09 14:16:10.966] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:10.966] Server 2001 heartbeat recieved
+[2026-02-09 14:16:11.464] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:11.464] Server 2003 heartbeat recieved
+[2026-02-09 14:16:11.465] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:11.465] Server 2002 heartbeat recieved
+[2026-02-09 14:16:11.468] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:11.470] Server 2001 heartbeat recieved
+[2026-02-09 14:16:11.967] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:11.967] Server 2003 heartbeat recieved
+[2026-02-09 14:16:11.968] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:11.968] Server 2002 heartbeat recieved
+[2026-02-09 14:16:11.972] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:11.973] Server 2001 heartbeat recieved
+[2026-02-09 14:16:11.976] Client 1 added
+[2026-02-09 14:16:11.977] Client 1 heartbeat recieved
+[2026-02-09 14:16:12.471] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:12.471] Server 2003 heartbeat recieved
+[2026-02-09 14:16:12.472] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:12.472] Server 2002 heartbeat recieved
+[2026-02-09 14:16:12.476] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:12.476] Server 2001 heartbeat recieved
+[2026-02-09 14:16:12.482] Client 1 heartbeat recieved
+[2026-02-09 14:16:12.973] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:12.973] Server 2003 heartbeat recieved
+[2026-02-09 14:16:12.976] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:12.976] Server 2002 heartbeat recieved
+[2026-02-09 14:16:12.978] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:12.978] Client 2 added
+[2026-02-09 14:16:12.979] Server 2001 heartbeat recieved
+[2026-02-09 14:16:12.980] Client 2 heartbeat recieved
+[2026-02-09 14:16:12.984] Client 1 heartbeat recieved
+[2026-02-09 14:16:13.476] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:13.476] Server 2003 heartbeat recieved
+[2026-02-09 14:16:13.480] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:13.480] Server 2002 heartbeat recieved
+[2026-02-09 14:16:13.481] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:13.481] Server 2001 heartbeat recieved
+[2026-02-09 14:16:13.484] Client 2 heartbeat recieved
+[2026-02-09 14:16:13.486] Client 1 heartbeat recieved
+[2026-02-09 14:16:13.980] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:13.981] Server 2003 heartbeat recieved
+[2026-02-09 14:16:13.981] Client 3 added
+[2026-02-09 14:16:13.981] Client 3 heartbeat recieved
+[2026-02-09 14:16:13.984] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:13.984] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:13.984] Server 2001 heartbeat recieved
+[2026-02-09 14:16:13.984] Server 2002 heartbeat recieved
+[2026-02-09 14:16:13.987] Client 2 heartbeat recieved
+[2026-02-09 14:16:13.988] Client 1 heartbeat recieved
+[2026-02-09 14:16:14.482] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:14.483] Server 2003 heartbeat recieved
+[2026-02-09 14:16:14.487] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:14.487] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:14.487] Server 2002 heartbeat recieved
+[2026-02-09 14:16:14.488] Server 2001 heartbeat recieved
+[2026-02-09 14:16:14.488] Client 3 heartbeat recieved
+[2026-02-09 14:16:14.490] Client 2 heartbeat recieved
+[2026-02-09 14:16:14.492] Client 1 heartbeat recieved
+[2026-02-09 14:16:14.985] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:14.985] Server 2003 heartbeat recieved
+[2026-02-09 14:16:14.988] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:14.988] Server 2002 heartbeat recieved
+[2026-02-09 14:16:14.990] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:14.990] Client 3 heartbeat recieved
+[2026-02-09 14:16:14.990] Server 2001 heartbeat recieved
+[2026-02-09 14:16:14.994] Client 2 heartbeat recieved
+[2026-02-09 14:16:14.995] Client 1 heartbeat recieved
+[2026-02-09 14:16:15.489] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:15.489] Server 2003 heartbeat recieved
+[2026-02-09 14:16:15.491] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:15.491] Server 2002 heartbeat recieved
+[2026-02-09 14:16:15.493] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:15.493] Client 3 heartbeat recieved
+[2026-02-09 14:16:15.493] Server 2001 heartbeat recieved
+[2026-02-09 14:16:15.497] Client 2 heartbeat recieved
+[2026-02-09 14:16:15.499] Client 1 heartbeat recieved
+[2026-02-09 14:16:15.991] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:15.991] Server 2003 heartbeat recieved
+[2026-02-09 14:16:15.994] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:15.995] Server 2002 heartbeat recieved
+[2026-02-09 14:16:15.996] Client 3 heartbeat recieved
+[2026-02-09 14:16:15.997] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:15.998] Server 2001 heartbeat recieved
+[2026-02-09 14:16:16.000] Client 2 heartbeat recieved
+[2026-02-09 14:16:16.001] Client 1 heartbeat recieved
+[2026-02-09 14:16:16.494] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:16.494] Server 2003 heartbeat recieved
+[2026-02-09 14:16:16.499] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:16.499] Client 3 heartbeat recieved
+[2026-02-09 14:16:16.499] Server 2002 heartbeat recieved
+[2026-02-09 14:16:16.500] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:16.500] Server 2001 heartbeat recieved
+[2026-02-09 14:16:16.503] Client 2 heartbeat recieved
+[2026-02-09 14:16:16.504] Client 1 heartbeat recieved
+[2026-02-09 14:16:16.997] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:16.997] Server 2003 heartbeat recieved
+[2026-02-09 14:16:17.002] Client 3 heartbeat recieved
+[2026-02-09 14:16:17.002] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:17.003] Server 2002 heartbeat recieved
+[2026-02-09 14:16:17.003] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:17.003] Server 2001 heartbeat recieved
+[2026-02-09 14:16:17.006] Client 2 heartbeat recieved
+[2026-02-09 14:16:17.008] Client 1 heartbeat recieved
+[2026-02-09 14:16:17.502] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:17.502] Server 2003 heartbeat recieved
+[2026-02-09 14:16:17.505] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:17.505] Client 3 heartbeat recieved
+[2026-02-09 14:16:17.505] Server 2002 heartbeat recieved
+[2026-02-09 14:16:17.507] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:17.508] Client 2 heartbeat recieved
+[2026-02-09 14:16:17.508] Server 2001 heartbeat recieved
+[2026-02-09 14:16:17.512] Client 1 heartbeat recieved
+[2026-02-09 14:16:18.004] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:18.004] Server 2003 heartbeat recieved
+[2026-02-09 14:16:18.008] Client 3 heartbeat recieved
+[2026-02-09 14:16:18.012] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:18.012] Client 2 heartbeat recieved
+[2026-02-09 14:16:18.013] Server 2002 heartbeat recieved
+[2026-02-09 14:16:18.014] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:18.015] Server 2001 heartbeat recieved
+[2026-02-09 14:16:18.016] Client 1 heartbeat recieved
+[2026-02-09 14:16:18.508] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:18.508] Server 2003 heartbeat recieved
+[2026-02-09 14:16:18.510] Client 3 heartbeat recieved
+[2026-02-09 14:16:18.515] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:18.517] Server 2002 heartbeat recieved
+[2026-02-09 14:16:18.518] Client 2 heartbeat recieved
+[2026-02-09 14:16:18.519] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:18.519] Server 2001 heartbeat recieved
+[2026-02-09 14:16:18.520] Client 1 heartbeat recieved
+[2026-02-09 14:16:19.012] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:19.012] Server 2003 heartbeat recieved
+[2026-02-09 14:16:19.014] Client 3 heartbeat recieved
+[2026-02-09 14:16:19.020] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:19.020] Server 2002 heartbeat recieved
+[2026-02-09 14:16:19.023] Client 1 heartbeat recieved
+[2026-02-09 14:16:19.025] Client 2 heartbeat recieved
+[2026-02-09 14:16:19.025] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:19.025] Server 2001 heartbeat recieved
+[2026-02-09 14:16:19.514] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:19.514] Server 2003 heartbeat recieved
+[2026-02-09 14:16:19.516] Client 3 heartbeat recieved
+[2026-02-09 14:16:19.523] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:19.523] Server 2002 heartbeat recieved
+[2026-02-09 14:16:19.526] Client 1 heartbeat recieved
+[2026-02-09 14:16:19.528] Client 2 heartbeat recieved
+[2026-02-09 14:16:19.528] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:19.528] Server 2001 heartbeat recieved
+[2026-02-09 14:16:20.018] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:20.018] Server 2003 heartbeat recieved
+[2026-02-09 14:16:20.021] Client 3 heartbeat recieved
+[2026-02-09 14:16:20.025] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:20.025] Server 2002 heartbeat recieved
+[2026-02-09 14:16:20.028] Client 1 heartbeat recieved
+[2026-02-09 14:16:20.030] Client 2 heartbeat recieved
+[2026-02-09 14:16:20.030] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:20.032] Server 2001 heartbeat recieved
+[2026-02-09 14:16:20.522] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:20.522] Server 2003 heartbeat recieved
+[2026-02-09 14:16:20.523] Client 3 heartbeat recieved
+[2026-02-09 14:16:20.528] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:20.528] Server 2002 heartbeat recieved
+[2026-02-09 14:16:20.531] Client 1 heartbeat recieved
+[2026-02-09 14:16:20.533] Client 2 heartbeat recieved
+[2026-02-09 14:16:20.534] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:20.534] Server 2001 heartbeat recieved
+[2026-02-09 14:16:21.026] Client 3 heartbeat recieved
+[2026-02-09 14:16:21.026] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:21.026] Server 2003 heartbeat recieved
+[2026-02-09 14:16:21.032] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:21.033] Server 2002 heartbeat recieved
+[2026-02-09 14:16:21.035] Client 1 heartbeat recieved
+[2026-02-09 14:16:21.036] Client 2 heartbeat recieved
+[2026-02-09 14:16:21.037] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:21.037] Server 2001 heartbeat recieved
+[2026-02-09 14:16:21.529] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:21.529] Client 3 heartbeat recieved
+[2026-02-09 14:16:21.529] Server 2003 heartbeat recieved
+[2026-02-09 14:16:21.535] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:21.535] Server 2002 heartbeat recieved
+[2026-02-09 14:16:21.536] Client 1 heartbeat recieved
+[2026-02-09 14:16:21.538] Client 2 heartbeat recieved
+[2026-02-09 14:16:21.540] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:21.540] Server 2001 heartbeat recieved
+[2026-02-09 14:16:22.032] Client 3 heartbeat recieved
+[2026-02-09 14:16:22.033] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:22.035] Server 2003 heartbeat recieved
+[2026-02-09 14:16:22.037] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:22.038] Server 2002 heartbeat recieved
+[2026-02-09 14:16:22.039] Client 1 heartbeat recieved
+[2026-02-09 14:16:22.041] Client 2 heartbeat recieved
+[2026-02-09 14:16:22.043] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:22.043] Server 2001 heartbeat recieved
+[2026-02-09 14:16:22.537] Client 3 heartbeat recieved
+[2026-02-09 14:16:22.538] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:22.538] Server 2003 heartbeat recieved
+[2026-02-09 14:16:22.540] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:22.541] Server 2002 heartbeat recieved
+[2026-02-09 14:16:22.541] Client 1 heartbeat recieved
+[2026-02-09 14:16:22.543] Client 2 heartbeat recieved
+[2026-02-09 14:16:22.544] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:22.544] Server 2001 heartbeat recieved
+[2026-02-09 14:16:23.039] Client 3 heartbeat recieved
+[2026-02-09 14:16:23.042] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:23.042] Server 2003 heartbeat recieved
+[2026-02-09 14:16:23.043] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:23.043] Server 2002 heartbeat recieved
+[2026-02-09 14:16:23.044] Client 1 heartbeat recieved
+[2026-02-09 14:16:23.045] Client 2 heartbeat recieved
+[2026-02-09 14:16:23.048] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:23.048] Server 2001 heartbeat recieved
+[2026-02-09 14:16:23.541] Client 3 heartbeat recieved
+[2026-02-09 14:16:23.544] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:23.544] Server 2003 heartbeat recieved
+[2026-02-09 14:16:23.546] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:23.546] Client 1 heartbeat recieved
+[2026-02-09 14:16:23.546] Server 2002 heartbeat recieved
+[2026-02-09 14:16:23.547] Client 2 heartbeat recieved
+[2026-02-09 14:16:23.551] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:23.551] Server 2001 heartbeat recieved
+[2026-02-09 14:16:24.043] Client 3 heartbeat recieved
+[2026-02-09 14:16:24.048] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:24.048] Server 2003 heartbeat recieved
+[2026-02-09 14:16:24.049] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:24.049] Client 1 heartbeat recieved
+[2026-02-09 14:16:24.049] Server 2002 heartbeat recieved
+[2026-02-09 14:16:24.051] Client 2 heartbeat recieved
+[2026-02-09 14:16:24.054] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:24.055] Server 2001 heartbeat recieved
+[2026-02-09 14:16:24.546] Client 3 heartbeat recieved
+[2026-02-09 14:16:24.550] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:24.550] Server 2003 heartbeat recieved
+[2026-02-09 14:16:24.552] Client 1 heartbeat recieved
+[2026-02-09 14:16:24.554] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:24.554] Server 2002 heartbeat recieved
+[2026-02-09 14:16:24.555] Client 2 heartbeat recieved
+[2026-02-09 14:16:24.559] PRIMARY Server 2001 heartbeat recieved
+[2026-02-09 14:16:24.559] Server 2001 heartbeat recieved
+[2026-02-09 14:16:25.048] Client 3 heartbeat recieved
+[2026-02-09 14:16:25.054] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:25.054] Server 2003 heartbeat recieved
+[2026-02-09 14:16:25.055] Client 1 heartbeat recieved
+[2026-02-09 14:16:25.057] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:25.057] Server 2002 heartbeat recieved
+[2026-02-09 14:16:25.057] Client 2 heartbeat recieved
+[2026-02-09 14:16:25.553] Client 3 heartbeat recieved
+[2026-02-09 14:16:25.556] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:25.556] Server 2003 heartbeat recieved
+[2026-02-09 14:16:25.557] Client 1 heartbeat recieved
+[2026-02-09 14:16:25.559] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:25.559] Client 2 heartbeat recieved
+[2026-02-09 14:16:25.559] Server 2002 heartbeat recieved
+[2026-02-09 14:16:26.055] Client 3 heartbeat recieved
+[2026-02-09 14:16:26.059] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:26.059] Server 2003 heartbeat recieved
+[2026-02-09 14:16:26.060] Client 1 heartbeat recieved
+[2026-02-09 14:16:26.062] SECONDARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:26.062] Client 2 heartbeat recieved
+[2026-02-09 14:16:26.062] Server 2002 heartbeat recieved
+[2026-02-09 14:16:26.326] Primary server 2001 not responding, triggering failover
+[2026-02-09 14:16:26.327] FAILOVER to Server 2002 with restored sum 367 on next heartbeat
+[2026-02-09 14:16:26.327] Secondary server 2001 not responding
+[2026-02-09 14:16:26.558] Client 3 heartbeat recieved
+[2026-02-09 14:16:26.562] Client 1 heartbeat recieved
+[2026-02-09 14:16:26.562] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:26.562] Server 2003 heartbeat recieved
+[2026-02-09 14:16:26.564] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:26.565] Server 2002 heartbeat recieved
+[2026-02-09 14:16:26.565] Client 2 heartbeat recieved
+[2026-02-09 14:16:26.828] Secondary server 2001 not responding
+[2026-02-09 14:16:27.060] Client 3 heartbeat recieved
+[2026-02-09 14:16:27.065] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:27.065] Client 1 heartbeat recieved
+[2026-02-09 14:16:27.065] Server 2003 heartbeat recieved
+[2026-02-09 14:16:27.066] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:27.066] Server 2002 heartbeat recieved
+[2026-02-09 14:16:27.068] Client 2 heartbeat recieved
+[2026-02-09 14:16:27.330] Secondary server 2001 not responding
+[2026-02-09 14:16:27.562] Client 3 heartbeat recieved
+[2026-02-09 14:16:27.568] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:27.568] Client 1 heartbeat recieved
+[2026-02-09 14:16:27.568] Server 2003 heartbeat recieved
+[2026-02-09 14:16:27.569] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:27.570] Server 2002 heartbeat recieved
+[2026-02-09 14:16:27.571] Client 2 heartbeat recieved
+[2026-02-09 14:16:27.832] Secondary server 2001 not responding
+[2026-02-09 14:16:28.064] Client 3 heartbeat recieved
+[2026-02-09 14:16:28.069] Client 1 heartbeat recieved
+[2026-02-09 14:16:28.071] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:28.071] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:28.071] Server 2002 heartbeat recieved
+[2026-02-09 14:16:28.072] Server 2003 heartbeat recieved
+[2026-02-09 14:16:28.073] Client 2 heartbeat recieved
+[2026-02-09 14:16:28.333] Secondary server 2001 not responding
+[2026-02-09 14:16:28.567] Client 3 heartbeat recieved
+[2026-02-09 14:16:28.572] Client 1 heartbeat recieved
+[2026-02-09 14:16:28.575] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:28.575] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:28.575] Server 2002 heartbeat recieved
+[2026-02-09 14:16:28.575] Server 2003 heartbeat recieved
+[2026-02-09 14:16:28.576] Client 2 heartbeat recieved
+[2026-02-09 14:16:28.834] Secondary server 2001 not responding
+[2026-02-09 14:16:29.069] Client 3 heartbeat recieved
+[2026-02-09 14:16:29.073] Client 1 heartbeat recieved
+[2026-02-09 14:16:29.076] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:29.077] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:29.077] Server 2003 heartbeat recieved
+[2026-02-09 14:16:29.077] Server 2002 heartbeat recieved
+[2026-02-09 14:16:29.078] Client 2 heartbeat recieved
+[2026-02-09 14:16:29.335] Secondary server 2001 not responding
+[2026-02-09 14:16:29.570] Client 3 heartbeat recieved
+[2026-02-09 14:16:29.576] Client 1 heartbeat recieved
+[2026-02-09 14:16:29.580] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:29.580] Server 2003 heartbeat recieved
+[2026-02-09 14:16:29.582] Client 2 heartbeat recieved
+[2026-02-09 14:16:29.582] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:29.582] Server 2002 heartbeat recieved
+[2026-02-09 14:16:29.837] Secondary server 2001 not responding
+[2026-02-09 14:16:29.837] Secondary server 2001 was stale, removed from list
+[2026-02-09 14:16:30.074] Client 3 heartbeat recieved
+[2026-02-09 14:16:30.078] Client 1 heartbeat recieved
+[2026-02-09 14:16:30.083] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:30.083] Server 2003 heartbeat recieved
+[2026-02-09 14:16:30.084] Client 2 heartbeat recieved
+[2026-02-09 14:16:30.084] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:30.085] Server 2002 heartbeat recieved
+[2026-02-09 14:16:30.575] Client 3 heartbeat recieved
+[2026-02-09 14:16:30.580] Client 1 heartbeat recieved
+[2026-02-09 14:16:30.585] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:30.585] Server 2003 heartbeat recieved
+[2026-02-09 14:16:30.587] Client 2 heartbeat recieved
+[2026-02-09 14:16:30.588] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:30.588] Server 2002 heartbeat recieved
+[2026-02-09 14:16:31.078] Client 3 heartbeat recieved
+[2026-02-09 14:16:31.083] Client 1 heartbeat recieved
+[2026-02-09 14:16:31.088] Client 2 heartbeat recieved
+[2026-02-09 14:16:31.088] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:31.088] Server 2003 heartbeat recieved
+[2026-02-09 14:16:31.090] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:31.090] Server 2002 heartbeat recieved
+[2026-02-09 14:16:31.580] Client 3 heartbeat recieved
+[2026-02-09 14:16:31.586] Client 1 heartbeat recieved
+[2026-02-09 14:16:31.592] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:31.592] Client 2 heartbeat recieved
+[2026-02-09 14:16:31.593] Server 2003 heartbeat recieved
+[2026-02-09 14:16:31.593] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:31.594] Server 2002 heartbeat recieved
+[2026-02-09 14:16:32.083] Client 3 heartbeat recieved
+[2026-02-09 14:16:32.090] Client 1 heartbeat recieved
+[2026-02-09 14:16:32.095] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:32.095] Client 2 heartbeat recieved
+[2026-02-09 14:16:32.095] Server 2003 heartbeat recieved
+[2026-02-09 14:16:32.096] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:32.096] Server 2002 heartbeat recieved
+[2026-02-09 14:16:32.585] Client 3 heartbeat recieved
+[2026-02-09 14:16:32.593] Client 1 heartbeat recieved
+[2026-02-09 14:16:32.598] Client 2 heartbeat recieved
+[2026-02-09 14:16:32.598] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:32.598] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:32.598] Server 2003 heartbeat recieved
+[2026-02-09 14:16:32.600] Server 2002 heartbeat recieved
+[2026-02-09 14:16:33.089] Client 3 heartbeat recieved
+[2026-02-09 14:16:33.094] Client 1 heartbeat recieved
+[2026-02-09 14:16:33.102] Client 2 heartbeat recieved
+[2026-02-09 14:16:33.102] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:33.102] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:33.102] Server 2003 heartbeat recieved
+[2026-02-09 14:16:33.103] Server 2002 heartbeat recieved
+[2026-02-09 14:16:33.593] Client 3 heartbeat recieved
+[2026-02-09 14:16:33.597] Client 1 heartbeat recieved
+[2026-02-09 14:16:33.606] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:33.606] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:33.607] Client 2 heartbeat recieved
+[2026-02-09 14:16:33.607] Server 2002 heartbeat recieved
+[2026-02-09 14:16:33.607] Server 2003 heartbeat recieved
+[2026-02-09 14:16:34.096] Client 3 heartbeat recieved
+[2026-02-09 14:16:34.099] Client 1 heartbeat recieved
+[2026-02-09 14:16:34.110] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:34.112] Client 2 heartbeat recieved
+[2026-02-09 14:16:34.112] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:34.113] Server 2003 heartbeat recieved
+[2026-02-09 14:16:34.114] Server 2002 heartbeat recieved
+[2026-02-09 14:16:34.600] Client 3 heartbeat recieved
+[2026-02-09 14:16:34.602] Client 1 heartbeat recieved
+[2026-02-09 14:16:34.616] Client 2 heartbeat recieved
+[2026-02-09 14:16:34.617] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:34.618] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:34.618] Server 2002 heartbeat recieved
+[2026-02-09 14:16:34.618] Server 2003 heartbeat recieved
+[2026-02-09 14:16:35.103] Client 3 heartbeat recieved
+[2026-02-09 14:16:35.105] Client 1 heartbeat recieved
+[2026-02-09 14:16:35.120] Client 2 heartbeat recieved
+[2026-02-09 14:16:35.120] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:35.120] Server 2003 heartbeat recieved
+[2026-02-09 14:16:35.121] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:35.122] Server 2002 heartbeat recieved
+[2026-02-09 14:16:35.605] Client 3 heartbeat recieved
+[2026-02-09 14:16:35.609] Client 1 heartbeat recieved
+[2026-02-09 14:16:35.623] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:35.623] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:35.623] Server 2003 heartbeat recieved
+[2026-02-09 14:16:35.623] Server 2002 heartbeat recieved
+[2026-02-09 14:16:35.624] Client 2 heartbeat recieved
+[2026-02-09 14:16:36.108] Client 3 heartbeat recieved
+[2026-02-09 14:16:36.111] Client 1 heartbeat recieved
+[2026-02-09 14:16:36.126] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:36.126] Client 2 heartbeat recieved
+[2026-02-09 14:16:36.126] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:36.126] Server 2003 heartbeat recieved
+[2026-02-09 14:16:36.126] Server 2002 heartbeat recieved
+[2026-02-09 14:16:36.612] Client 3 heartbeat recieved
+[2026-02-09 14:16:36.614] Client 1 heartbeat recieved
+[2026-02-09 14:16:36.629] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:36.629] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:36.629] Client 2 heartbeat recieved
+[2026-02-09 14:16:36.629] Server 2003 heartbeat recieved
+[2026-02-09 14:16:36.631] Server 2002 heartbeat recieved
+[2026-02-09 14:16:37.113] Client 3 heartbeat recieved
+[2026-02-09 14:16:37.117] Client 1 heartbeat recieved
+[2026-02-09 14:16:37.134] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:37.134] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:37.134] Client 2 heartbeat recieved
+[2026-02-09 14:16:37.134] Server 2002 heartbeat recieved
+[2026-02-09 14:16:37.134] Server 2003 heartbeat recieved
+[2026-02-09 14:16:37.616] Client 3 heartbeat recieved
+[2026-02-09 14:16:37.619] Client 1 heartbeat recieved
+[2026-02-09 14:16:37.637] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:37.637] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:37.637] Client 2 heartbeat recieved
+[2026-02-09 14:16:37.638] Server 2003 heartbeat recieved
+[2026-02-09 14:16:37.638] Server 2002 heartbeat recieved
+[2026-02-09 14:16:38.118] Client 3 heartbeat recieved
+[2026-02-09 14:16:38.122] Client 1 heartbeat recieved
+[2026-02-09 14:16:38.140] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:38.140] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:38.140] Client 2 heartbeat recieved
+[2026-02-09 14:16:38.140] Server 2002 heartbeat recieved
+[2026-02-09 14:16:38.140] Server 2003 heartbeat recieved
+[2026-02-09 14:16:38.621] Client 3 heartbeat recieved
+[2026-02-09 14:16:38.625] Client 1 heartbeat recieved
+[2026-02-09 14:16:38.642] Client 2 heartbeat recieved
+[2026-02-09 14:16:38.644] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:38.644] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:38.644] Server 2002 heartbeat recieved
+[2026-02-09 14:16:38.644] Server 2003 heartbeat recieved
+[2026-02-09 14:16:39.123] Client 3 heartbeat recieved
+[2026-02-09 14:16:39.128] Client 1 heartbeat recieved
+[2026-02-09 14:16:39.144] Client 2 heartbeat recieved
+[2026-02-09 14:16:39.148] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:39.148] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:39.151] Server 2002 heartbeat recieved
+[2026-02-09 14:16:39.152] Server 2003 heartbeat recieved
+[2026-02-09 14:16:39.628] Client 3 heartbeat recieved
+[2026-02-09 14:16:39.633] Client 1 heartbeat recieved
+[2026-02-09 14:16:39.648] Client 2 heartbeat recieved
+[2026-02-09 14:16:39.654] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:39.654] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:39.654] Server 2003 heartbeat recieved
+[2026-02-09 14:16:39.654] Server 2002 heartbeat recieved
+[2026-02-09 14:16:40.131] Client 3 heartbeat recieved
+[2026-02-09 14:16:40.135] Client 1 heartbeat recieved
+[2026-02-09 14:16:40.150] Client 2 heartbeat recieved
+[2026-02-09 14:16:40.156] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:40.157] Server 2003 heartbeat recieved
+[2026-02-09 14:16:40.158] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:40.158] Server 2002 heartbeat recieved
+[2026-02-09 14:16:40.633] Client 3 heartbeat recieved
+[2026-02-09 14:16:40.638] Client 1 heartbeat recieved
+[2026-02-09 14:16:40.652] Client 2 heartbeat recieved
+[2026-02-09 14:16:40.660] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:40.660] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:40.661] Server 2002 heartbeat recieved
+[2026-02-09 14:16:40.661] Server 2003 heartbeat recieved
+[2026-02-09 14:16:41.134] Client 3 heartbeat recieved
+[2026-02-09 14:16:41.140] Client 1 heartbeat recieved
+[2026-02-09 14:16:41.155] Client 2 heartbeat recieved
+[2026-02-09 14:16:41.163] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:41.163] Server 2002 heartbeat recieved
+[2026-02-09 14:16:41.164] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:41.164] Server 2003 heartbeat recieved
+[2026-02-09 14:16:41.637] Client 3 heartbeat recieved
+[2026-02-09 14:16:41.644] Client 1 heartbeat recieved
+[2026-02-09 14:16:41.658] Client 2 heartbeat recieved
+[2026-02-09 14:16:41.666] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:41.666] Server 2002 heartbeat recieved
+[2026-02-09 14:16:41.668] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:41.668] Server 2003 heartbeat recieved
+[2026-02-09 14:16:42.140] Client 3 heartbeat recieved
+[2026-02-09 14:16:42.146] Client 1 heartbeat recieved
+[2026-02-09 14:16:42.160] Client 2 heartbeat recieved
+[2026-02-09 14:16:42.168] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:42.168] Server 2002 heartbeat recieved
+[2026-02-09 14:16:42.169] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:42.169] Server 2003 heartbeat recieved
+[2026-02-09 14:16:42.642] Client 3 heartbeat recieved
+[2026-02-09 14:16:42.649] Client 1 heartbeat recieved
+[2026-02-09 14:16:42.663] Client 2 heartbeat recieved
+[2026-02-09 14:16:42.671] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:42.671] Server 2002 heartbeat recieved
+[2026-02-09 14:16:42.673] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:42.674] Server 2003 heartbeat recieved
+[2026-02-09 14:16:43.145] Client 3 heartbeat recieved
+[2026-02-09 14:16:43.150] Client 1 heartbeat recieved
+[2026-02-09 14:16:43.164] Client 2 heartbeat recieved
+[2026-02-09 14:16:43.174] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:43.174] Server 2002 heartbeat recieved
+[2026-02-09 14:16:43.175] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:43.175] Server 2003 heartbeat recieved
+[2026-02-09 14:16:43.648] Client 3 heartbeat recieved
+[2026-02-09 14:16:43.652] Client 1 heartbeat recieved
+[2026-02-09 14:16:43.666] Client 2 heartbeat recieved
+[2026-02-09 14:16:43.676] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:43.677] Server 2002 heartbeat recieved
+[2026-02-09 14:16:43.679] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:43.679] Server 2003 heartbeat recieved
+[2026-02-09 14:16:44.151] Client 3 heartbeat recieved
+[2026-02-09 14:16:44.156] Client 1 heartbeat recieved
+[2026-02-09 14:16:44.168] Client 2 heartbeat recieved
+[2026-02-09 14:16:44.179] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:44.179] Server 2002 heartbeat recieved
+[2026-02-09 14:16:44.182] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:44.182] Server 2003 heartbeat recieved
+[2026-02-09 14:16:44.654] Client 3 heartbeat recieved
+[2026-02-09 14:16:44.658] Client 1 heartbeat recieved
+[2026-02-09 14:16:44.670] Client 2 heartbeat recieved
+[2026-02-09 14:16:44.681] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:44.681] Server 2002 heartbeat recieved
+[2026-02-09 14:16:44.684] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:44.684] Server 2003 heartbeat recieved
+[2026-02-09 14:16:45.156] Client 3 heartbeat recieved
+[2026-02-09 14:16:45.161] Client 1 heartbeat recieved
+[2026-02-09 14:16:45.175] Client 2 heartbeat recieved
+[2026-02-09 14:16:45.184] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:45.184] Server 2002 heartbeat recieved
+[2026-02-09 14:16:45.187] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:45.187] Server 2003 heartbeat recieved
+[2026-02-09 14:16:45.658] Client 3 heartbeat recieved
+[2026-02-09 14:16:45.663] Client 1 heartbeat recieved
+[2026-02-09 14:16:45.677] Client 2 heartbeat recieved
+[2026-02-09 14:16:45.686] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:45.686] Server 2002 heartbeat recieved
+[2026-02-09 14:16:45.690] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:45.690] Server 2003 heartbeat recieved
+[2026-02-09 14:16:46.160] Client 3 heartbeat recieved
+[2026-02-09 14:16:46.165] Client 1 heartbeat recieved
+[2026-02-09 14:16:46.178] Client 2 heartbeat recieved
+[2026-02-09 14:16:46.188] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:46.188] Server 2002 heartbeat recieved
+[2026-02-09 14:16:46.192] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:46.192] Server 2003 heartbeat recieved
+[2026-02-09 14:16:46.663] Client 3 heartbeat recieved
+[2026-02-09 14:16:46.668] Client 1 heartbeat recieved
+[2026-02-09 14:16:46.680] Client 2 heartbeat recieved
+[2026-02-09 14:16:46.690] PRIMARY Server 2002 heartbeat recieved
+[2026-02-09 14:16:46.690] Server 2002 heartbeat recieved
+[2026-02-09 14:16:46.695] SECONDARY Server 2003 heartbeat recieved
+[2026-02-09 14:16:46.695] Server 2003 heartbeat recieved

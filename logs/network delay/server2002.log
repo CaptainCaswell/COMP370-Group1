@@ -1,0 +1,293 @@
+[2026-02-09 17:06:31.621] Server 2002 started
+[2026-02-09 17:06:31.637] Heartbeat sent
+[2026-02-09 17:06:31.639] Heartbeat acknowledged.
+[2026-02-09 17:06:32.145] Heartbeat sent
+[2026-02-09 17:06:32.146] Heartbeat acknowledged.
+[2026-02-09 17:06:32.647] Heartbeat sent
+[2026-02-09 17:06:32.649] Heartbeat acknowledged.
+[2026-02-09 17:06:33.150] Heartbeat sent
+[2026-02-09 17:06:33.152] Heartbeat acknowledged.
+[2026-02-09 17:06:33.652] Heartbeat sent
+[2026-02-09 17:06:33.654] Heartbeat acknowledged.
+[2026-02-09 17:06:34.156] Heartbeat sent
+[2026-02-09 17:06:34.157] Heartbeat acknowledged.
+[2026-02-09 17:06:34.659] Heartbeat sent
+[2026-02-09 17:06:34.661] Heartbeat acknowledged.
+[2026-02-09 17:06:35.162] Heartbeat sent
+[2026-02-09 17:06:35.164] Heartbeat acknowledged.
+[2026-02-09 17:06:35.667] Heartbeat sent
+[2026-02-09 17:06:35.668] Heartbeat acknowledged.
+[2026-02-09 17:06:36.170] Heartbeat sent
+[2026-02-09 17:06:36.172] Heartbeat acknowledged.
+[2026-02-09 17:06:36.673] Heartbeat sent
+[2026-02-09 17:06:36.674] Heartbeat acknowledged.
+[2026-02-09 17:06:37.175] Heartbeat sent
+[2026-02-09 17:06:37.177] Sum set to 47
+[2026-02-09 17:06:37.177] Heartbeat acknowledged.
+[2026-02-09 17:06:37.679] Heartbeat sent
+[2026-02-09 17:06:37.680] Heartbeat acknowledged.
+[2026-02-09 17:06:38.182] Heartbeat sent
+[2026-02-09 17:06:38.183] Heartbeat acknowledged.
+[2026-02-09 17:06:38.685] Heartbeat sent
+[2026-02-09 17:06:38.686] Sum set to 183
+[2026-02-09 17:06:38.686] Heartbeat acknowledged.
+[2026-02-09 17:06:39.188] Heartbeat sent
+[2026-02-09 17:06:39.190] Heartbeat acknowledged.
+[2026-02-09 17:06:39.691] Heartbeat sent
+[2026-02-09 17:06:39.692] Heartbeat acknowledged.
+[2026-02-09 17:06:40.194] Heartbeat sent
+[2026-02-09 17:06:40.195] Heartbeat acknowledged.
+[2026-02-09 17:06:40.697] Heartbeat sent
+[2026-02-09 17:06:40.698] Heartbeat acknowledged.
+[2026-02-09 17:06:41.203] Heartbeat sent
+[2026-02-09 17:06:41.204] Heartbeat acknowledged.
+[2026-02-09 17:06:41.706] Heartbeat sent
+[2026-02-09 17:06:41.709] Heartbeat acknowledged.
+[2026-02-09 17:06:42.213] Heartbeat sent
+[2026-02-09 17:06:42.214] Server promoted to primary
+[2026-02-09 17:06:42.214] Server promoted to PRIMARY
+[2026-02-09 17:06:42.717] Heartbeat sent
+[2026-02-09 17:06:42.718] Heartbeat acknowledged
+[2026-02-09 17:06:43.220] Heartbeat sent
+[2026-02-09 17:06:43.222] Heartbeat acknowledged
+[2026-02-09 17:06:43.281] Recieved 90
+[2026-02-09 17:06:43.281] Sum updated to 273
+[2026-02-09 17:06:43.282] Heartbeat sent
+[2026-02-09 17:06:43.282] Heartbeat acknowledged
+[2026-02-09 17:06:43.390] Recieved 75
+[2026-02-09 17:06:43.390] Sum updated to 348
+[2026-02-09 17:06:43.392] Heartbeat sent
+[2026-02-09 17:06:43.392] Heartbeat acknowledged
+[2026-02-09 17:06:43.524] Recieved 47
+[2026-02-09 17:06:43.524] Sum updated to 395
+[2026-02-09 17:06:43.526] Heartbeat sent
+[2026-02-09 17:06:43.526] Heartbeat acknowledged
+[2026-02-09 17:06:43.723] Heartbeat sent
+[2026-02-09 17:06:43.723] Heartbeat acknowledged
+[2026-02-09 17:06:43.857] Recieved 13
+[2026-02-09 17:06:43.857] Sum updated to 408
+[2026-02-09 17:06:43.859] Heartbeat sent
+[2026-02-09 17:06:43.859] Heartbeat acknowledged
+[2026-02-09 17:06:44.227] Heartbeat sent
+[2026-02-09 17:06:44.227] Heartbeat acknowledged
+[2026-02-09 17:06:44.729] Heartbeat sent
+[2026-02-09 17:06:44.729] Heartbeat acknowledged
+[2026-02-09 17:06:45.231] Heartbeat sent
+[2026-02-09 17:06:45.231] Heartbeat acknowledged
+[2026-02-09 17:06:45.735] Heartbeat sent
+[2026-02-09 17:06:45.735] Heartbeat acknowledged
+[2026-02-09 17:06:46.237] Heartbeat sent
+[2026-02-09 17:06:46.237] Heartbeat acknowledged
+[2026-02-09 17:06:46.739] Heartbeat sent
+[2026-02-09 17:06:46.740] Heartbeat acknowledged
+[2026-02-09 17:06:47.242] Heartbeat sent
+[2026-02-09 17:06:47.243] Heartbeat acknowledged
+[2026-02-09 17:06:47.745] Heartbeat sent
+[2026-02-09 17:06:47.746] Heartbeat acknowledged
+[2026-02-09 17:06:48.248] Heartbeat sent
+[2026-02-09 17:06:48.249] Heartbeat acknowledged
+[2026-02-09 17:06:48.285] Recieved 60
+[2026-02-09 17:06:48.285] Sum updated to 468
+[2026-02-09 17:06:48.287] Heartbeat sent
+[2026-02-09 17:06:48.287] Heartbeat acknowledged
+[2026-02-09 17:06:48.530] Recieved 82
+[2026-02-09 17:06:48.530] Sum updated to 550
+[2026-02-09 17:06:48.531] Heartbeat sent
+[2026-02-09 17:06:48.532] Heartbeat acknowledged
+[2026-02-09 17:06:48.751] Heartbeat sent
+[2026-02-09 17:06:48.752] Heartbeat acknowledged
+[2026-02-09 17:06:48.863] Recieved 45
+[2026-02-09 17:06:48.863] Sum updated to 595
+[2026-02-09 17:06:48.865] Heartbeat sent
+[2026-02-09 17:06:48.865] Heartbeat acknowledged
+[2026-02-09 17:06:49.252] Heartbeat sent
+[2026-02-09 17:06:49.253] Heartbeat acknowledged
+[2026-02-09 17:06:49.755] Heartbeat sent
+[2026-02-09 17:06:49.757] Heartbeat acknowledged
+[2026-02-09 17:06:50.258] Heartbeat sent
+[2026-02-09 17:06:50.259] Heartbeat acknowledged
+[2026-02-09 17:06:50.762] Heartbeat sent
+[2026-02-09 17:06:50.769] Heartbeat acknowledged
+[2026-02-09 17:06:51.274] Heartbeat sent
+[2026-02-09 17:06:51.337] Heartbeat failed: No line found
+[2026-02-09 17:06:51.842] Heartbeat failed: Connection refused: connect
+[2026-02-09 17:27:02.009] Server 2002 started
+[2026-02-09 17:27:02.020] Heartbeat sent
+[2026-02-09 17:27:02.023] Heartbeat acknowledged.
+[2026-02-09 17:27:02.528] Heartbeat sent
+[2026-02-09 17:27:02.528] Heartbeat acknowledged.
+[2026-02-09 17:27:03.030] Heartbeat sent
+[2026-02-09 17:27:03.031] Heartbeat acknowledged.
+[2026-02-09 17:27:03.533] Heartbeat sent
+[2026-02-09 17:27:03.534] Heartbeat acknowledged.
+[2026-02-09 17:27:04.037] Heartbeat sent
+[2026-02-09 17:27:04.038] Heartbeat acknowledged.
+[2026-02-09 17:27:04.539] Heartbeat sent
+[2026-02-09 17:27:04.540] Heartbeat acknowledged.
+[2026-02-09 17:27:05.041] Heartbeat sent
+[2026-02-09 17:27:05.043] Heartbeat acknowledged.
+[2026-02-09 17:27:05.545] Heartbeat sent
+[2026-02-09 17:27:05.546] Heartbeat acknowledged.
+[2026-02-09 17:27:06.049] Heartbeat sent
+[2026-02-09 17:27:06.050] Heartbeat acknowledged.
+[2026-02-09 17:27:06.552] Heartbeat sent
+[2026-02-09 17:27:06.554] Sum set to 15
+[2026-02-09 17:27:06.554] Heartbeat acknowledged.
+[2026-02-09 17:27:07.055] Heartbeat sent
+[2026-02-09 17:27:07.056] Heartbeat acknowledged.
+[2026-02-09 17:27:07.557] Heartbeat sent
+[2026-02-09 17:27:07.560] Heartbeat acknowledged.
+[2026-02-09 17:27:08.064] Heartbeat sent
+[2026-02-09 17:27:08.065] Sum set to 150
+[2026-02-09 17:27:08.065] Heartbeat acknowledged.
+[2026-02-09 17:27:08.567] Heartbeat sent
+[2026-02-09 17:27:08.568] Sum set to 220
+[2026-02-09 17:27:08.568] Heartbeat acknowledged.
+[2026-02-09 17:27:09.070] Heartbeat sent
+[2026-02-09 17:27:09.071] Heartbeat acknowledged.
+[2026-02-09 17:27:09.572] Heartbeat sent
+[2026-02-09 17:27:09.573] Heartbeat acknowledged.
+[2026-02-09 17:27:10.076] Heartbeat sent
+[2026-02-09 17:27:10.077] Heartbeat acknowledged.
+[2026-02-09 17:27:10.580] Heartbeat sent
+[2026-02-09 17:27:10.581] Heartbeat acknowledged.
+[2026-02-09 17:27:11.082] Heartbeat sent
+[2026-02-09 17:27:11.084] Heartbeat acknowledged.
+[2026-02-09 17:27:11.585] Heartbeat sent
+[2026-02-09 17:27:11.586] Sum set to 314
+[2026-02-09 17:27:11.587] Heartbeat acknowledged.
+[2026-02-09 17:27:12.087] Heartbeat sent
+[2026-02-09 17:27:12.089] Heartbeat acknowledged.
+[2026-02-09 17:27:12.590] Heartbeat sent
+[2026-02-09 17:27:12.591] Heartbeat acknowledged.
+[2026-02-09 17:27:13.093] Heartbeat sent
+[2026-02-09 17:27:13.094] Sum set to 391
+[2026-02-09 17:27:13.094] Heartbeat acknowledged.
+[2026-02-09 17:27:13.596] Heartbeat sent
+[2026-02-09 17:27:13.596] Sum set to 437
+[2026-02-09 17:27:13.597] Heartbeat acknowledged.
+[2026-02-09 17:27:14.098] Heartbeat sent
+[2026-02-09 17:27:14.098] Heartbeat acknowledged.
+[2026-02-09 17:27:14.600] Heartbeat sent
+[2026-02-09 17:27:14.601] Heartbeat acknowledged.
+[2026-02-09 17:27:15.103] Heartbeat sent
+[2026-02-09 17:27:15.104] Heartbeat acknowledged.
+[2026-02-09 17:27:15.606] Heartbeat sent
+[2026-02-09 17:27:15.606] Heartbeat acknowledged.
+[2026-02-09 17:27:16.109] Heartbeat sent
+[2026-02-09 17:27:16.110] Heartbeat acknowledged.
+[2026-02-09 17:27:16.612] Heartbeat sent
+[2026-02-09 17:27:16.613] Sum set to 508
+[2026-02-09 17:27:16.613] Heartbeat acknowledged.
+[2026-02-09 17:27:17.114] Heartbeat sent
+[2026-02-09 17:27:17.116] Heartbeat acknowledged.
+[2026-02-09 17:27:17.617] Heartbeat sent
+[2026-02-09 17:27:17.617] Heartbeat acknowledged.
+[2026-02-09 17:27:18.119] Heartbeat sent
+[2026-02-09 17:27:18.119] Sum set to 670
+[2026-02-09 17:27:18.121] Heartbeat acknowledged.
+[2026-02-09 17:27:18.623] Heartbeat sent
+[2026-02-09 17:27:18.624] Sum set to 742
+[2026-02-09 17:27:18.624] Heartbeat acknowledged.
+[2026-02-09 17:27:19.125] Heartbeat sent
+[2026-02-09 17:27:19.126] Heartbeat acknowledged.
+[2026-02-09 17:27:19.627] Heartbeat sent
+[2026-02-09 17:27:19.627] Heartbeat acknowledged.
+[2026-02-09 17:27:20.129] Heartbeat sent
+[2026-02-09 17:27:20.131] Heartbeat acknowledged.
+[2026-02-09 17:27:20.633] Heartbeat sent
+[2026-02-09 17:27:20.634] Heartbeat acknowledged.
+[2026-02-09 17:27:21.136] Heartbeat sent
+[2026-02-09 17:27:21.136] Heartbeat acknowledged.
+[2026-02-09 17:27:21.639] Heartbeat sent
+[2026-02-09 17:27:21.639] Sum set to 771
+[2026-02-09 17:27:21.639] Heartbeat acknowledged.
+[2026-02-09 17:27:22.142] Heartbeat sent
+[2026-02-09 17:27:22.143] Heartbeat acknowledged.
+[2026-02-09 17:27:22.644] Heartbeat sent
+[2026-02-09 17:27:22.644] Heartbeat acknowledged.
+[2026-02-09 17:27:23.147] Heartbeat sent
+[2026-02-09 17:27:23.147] Sum set to 839
+[2026-02-09 17:27:23.148] Heartbeat acknowledged.
+[2026-02-09 17:27:23.648] Heartbeat sent
+[2026-02-09 17:27:23.650] Sum set to 861
+[2026-02-09 17:27:23.650] Heartbeat acknowledged.
+[2026-02-09 17:27:24.152] Heartbeat sent
+[2026-02-09 17:27:24.152] Heartbeat acknowledged.
+[2026-02-09 17:27:24.654] Heartbeat sent
+[2026-02-09 17:27:24.655] Heartbeat acknowledged.
+[2026-02-09 17:27:25.157] Heartbeat sent
+[2026-02-09 17:27:25.157] Heartbeat acknowledged.
+[2026-02-09 17:27:25.660] Heartbeat sent
+[2026-02-09 17:27:25.660] Heartbeat acknowledged.
+[2026-02-09 17:27:26.162] Heartbeat sent
+[2026-02-09 17:27:26.162] Heartbeat acknowledged.
+[2026-02-09 17:27:26.665] Heartbeat sent
+[2026-02-09 17:27:26.665] Heartbeat acknowledged.
+[2026-02-09 17:27:27.168] Heartbeat sent
+[2026-02-09 17:27:27.168] Heartbeat acknowledged.
+[2026-02-09 17:27:27.671] Heartbeat sent
+[2026-02-09 17:27:27.671] Heartbeat acknowledged.
+[2026-02-09 17:27:28.172] Heartbeat sent
+[2026-02-09 17:27:28.172] Sum set to 977
+[2026-02-09 17:27:28.174] Heartbeat acknowledged.
+[2026-02-09 17:27:28.675] Heartbeat sent
+[2026-02-09 17:27:28.677] Sum set to 1031
+[2026-02-09 17:27:28.677] Heartbeat acknowledged.
+[2026-02-09 17:27:29.178] Heartbeat sent
+[2026-02-09 17:27:29.178] Heartbeat acknowledged.
+[2026-02-09 17:27:29.680] Heartbeat sent
+[2026-02-09 17:27:29.682] Heartbeat acknowledged.
+[2026-02-09 17:27:30.183] Heartbeat sent
+[2026-02-09 17:27:30.183] Heartbeat acknowledged.
+[2026-02-09 17:27:30.687] Heartbeat sent
+[2026-02-09 17:27:30.687] Heartbeat acknowledged.
+[2026-02-09 17:27:31.189] Heartbeat sent
+[2026-02-09 17:27:31.190] Server promoted to primary
+[2026-02-09 17:27:31.190] Server promoted to PRIMARY
+[2026-02-09 17:27:31.692] Heartbeat sent
+[2026-02-09 17:27:31.693] Heartbeat acknowledged
+[2026-02-09 17:27:32.194] Heartbeat sent
+[2026-02-09 17:27:32.195] Heartbeat acknowledged
+[2026-02-09 17:27:32.696] Heartbeat sent
+[2026-02-09 17:27:32.696] Heartbeat acknowledged
+[2026-02-09 17:27:32.783] Recieved 72
+[2026-02-09 17:27:32.783] Sum updated to 1103
+[2026-02-09 17:27:33.033] Recieved 36
+[2026-02-09 17:27:33.033] Sum updated to 1139
+[2026-02-09 17:27:33.198] Heartbeat sent
+[2026-02-09 17:27:33.199] Heartbeat acknowledged
+[2026-02-09 17:27:33.287] Recieved 66
+[2026-02-09 17:27:33.287] Sum updated to 1205
+[2026-02-09 17:27:33.701] Heartbeat sent
+[2026-02-09 17:27:33.702] Heartbeat acknowledged
+[2026-02-09 17:27:34.204] Heartbeat sent
+[2026-02-09 17:27:34.204] Heartbeat acknowledged
+[2026-02-09 17:27:34.706] Heartbeat sent
+[2026-02-09 17:27:34.706] Heartbeat acknowledged
+[2026-02-09 17:27:35.208] Heartbeat sent
+[2026-02-09 17:27:35.208] Heartbeat acknowledged
+[2026-02-09 17:27:35.711] Heartbeat sent
+[2026-02-09 17:27:35.713] Heartbeat acknowledged
+[2026-02-09 17:27:36.215] Heartbeat sent
+[2026-02-09 17:27:36.215] Heartbeat acknowledged
+[2026-02-09 17:27:36.716] Heartbeat sent
+[2026-02-09 17:27:36.718] Heartbeat acknowledged
+[2026-02-09 17:27:37.219] Heartbeat sent
+[2026-02-09 17:27:37.219] Heartbeat acknowledged
+[2026-02-09 17:27:37.722] Heartbeat sent
+[2026-02-09 17:27:37.723] Heartbeat acknowledged
+[2026-02-09 17:27:37.788] Recieved 89
+[2026-02-09 17:27:37.788] Sum updated to 1294
+[2026-02-09 17:27:38.038] Recieved 13
+[2026-02-09 17:27:38.038] Sum updated to 1307
+[2026-02-09 17:27:38.225] Heartbeat sent
+[2026-02-09 17:27:38.226] Heartbeat acknowledged
+[2026-02-09 17:27:38.291] Recieved 69
+[2026-02-09 17:27:38.291] Sum updated to 1376
+[2026-02-09 17:27:38.727] Heartbeat sent
+[2026-02-09 17:27:38.729] Heartbeat acknowledged
+[2026-02-09 17:27:39.231] Heartbeat sent
+[2026-02-09 17:27:39.232] Heartbeat acknowledged
+[2026-02-09 17:27:39.735] Heartbeat failed: Connection refused: connect
+[2026-02-09 17:27:40.236] Heartbeat failed: Connection refused: connect
