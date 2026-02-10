@@ -1,9 +1,39 @@
 # COMP 370 - Group 1 - Mini-Project 1
 
-## Testing procedure
+## Automated Testing
 
-For basic testing, run `basic test.bat`. This will start up a server, client, and monitor.
+### Admin Panel
 
-For more advanced testing, run `test.bat`. This will start up 2 clients, 1 monitor, and 3 servers. Failover can be simulated by closeing the primary server.
+Launching `ui.bat` will compile all required java files to the bin folder, then launch the Admin user interface for the system. From here the user can:
 
-For UI testing, run `UI.bat`. This will only start a monitor, but more can be started from the interface.
+* Start clients
+* Start slow clients
+* Kill clients
+* Start servers
+* Start slow servers
+* Kill servers
+* Run testing scenarios
+
+## Semi-Automated Testing
+
+### basic.bat
+
+This batch file simply compiles the java files into the bin folder, then launches one each of a client, server, and monitor.
+
+### advanced.bat
+
+This batch file compiles the java files into the bin folders, then launches one server, one monitor, three clients. After waiting for 2 seconds it starts another 2 servers. Crashing of servers can be simulated by closing the command prompt window.
+
+## Manual Testing
+
+### compile.bat
+
+This will only compile the java files to allow for future manual launching of processes.
+
+### Manual Commands
+
+`java -cp bin Client <id> [delay]` will start a client. ID must be unique. Delay is optional. If there is a delay, it will get incrementally longer until the monitor issues a shutdown command due to being over the threshold. The delay is in miliseconds.
+
+`java -cp bin Server <id> [delay]`will start a server. ID must be unique. Delay is optional. If there is a delay, it will get incrementally longer until the monitor issues a shutdown command due to being over the threshold. The delay is in miliseconds.
+
+`java -cp bin Monitor [ui]` will start the monitor. Adding the ui argument will launch the monitor UI. There can only be one monitor active.

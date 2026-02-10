@@ -3,7 +3,4 @@
 REM Compile all Java files
 javac -d bin *.java
 
-REM Start Monitor
-start "MONITOR" java -cp bin Monitor ui
-
 pause
