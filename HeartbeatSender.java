@@ -43,12 +43,12 @@ public abstract class HeartbeatSender implements Runnable {
              PrintStream output = new PrintStream(socket.getOutputStream())) {
 
             // Sleep if delay is set
-            if (heartbeatDelay > 0 ) {
+            if ( heartbeatDelay > 0 ) {
                 // Delay
                 Thread.sleep( heartbeatDelay );
 
                 // Increment delay
-                setHeartbeatDelay( heartbeatDelay + 100L );
+                setHeartbeatDelay( heartbeatDelay + 50L );
             }
 
             action.perform(input, output);

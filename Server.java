@@ -68,6 +68,7 @@ public class Server {
     public void start () throws IOException, InterruptedException {
         // Start seperate thread for heartbeat
         Thread heartbeatThread = new Thread( heartbeatSender );
+
         heartbeatThread.setDaemon( true );
         heartbeatThread.start();
 
@@ -139,6 +140,13 @@ public class Server {
             logger.log( "Recieved " + clientMessage );
             logger.log( "Sum updated to " + sum );
 
+            if ( !verifyPrimary() ) {
+                logger.log( "Primary changed, shutting down..." );
+                demote();
+                shutdown();
+                return "NOT_PRIMARY";
+            }
+
             return "SUCCESS " + newSum;
         } catch ( NumberFormatException e ) {
             logger.log( "Invalid input from client" );
@@ -147,6 +155,24 @@ public class Server {
             return "FAILED " + newSum;
         }
     }
+
+    protected boolean verifyPrimary() {
+    try (Socket socket = new Socket(host, monitorPort);
+         Scanner input = new Scanner(socket.getInputStream());
+         PrintStream output = new PrintStream(socket.getOutputStream())) {
+
+        // Send heartbeat with current sum
+        output.println("SERVER_HEARTBEAT " + serverID + " " + getSum());
+        String response = input.nextLine();
+
+        // Check if response is PRIMARY
+        return response.startsWith("PRIMARY");
+
+    } catch (Exception e) {
+        logger.log("Failed to verify primary status: " + e.getMessage());
+        return false;
+    }
+}
 
     public synchronized void promote() {
         isPrimary = true;
