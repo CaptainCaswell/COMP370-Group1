@@ -1,5 +1,13 @@
 # COMP 370 - Group 1 - Mini-Project 1
 
+## Quick Links
+
+[Class Diagram](ClassDiagramV3.png)
+
+[Sequence Diagram](SequenceDiagramV3.png)
+
+[Sequence Diagram 2](SequenceDiagram2V3.png)
+
 ## Automated Testing
 
 ### Admin Panel
