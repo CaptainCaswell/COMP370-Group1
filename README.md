@@ -14,6 +14,8 @@ Launching `ui.bat` will compile all required java files to the bin folder, then 
 * Kill servers
 * Run testing scenarios
 
+Please note that scenarios will close all current servers. Manual launching of any nodes while scenarios are running will alter the scenario.
+
 ## Semi-Automated Testing
 
 ### basic.bat
