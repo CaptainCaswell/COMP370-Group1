@@ -2,6 +2,8 @@
 
 ## Quick Links
 
+[Use Case Diagram](UseCase.png)
+
 [Class Diagram - Simplified version](ClassDiagramV5.png)
 
 [Class Diagram - Detailed version](ClassDiagramV6.png)
