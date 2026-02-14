@@ -2,7 +2,9 @@
 
 ## Quick Links
 
-[Class Diagram](ClassDiagramV3.png)
+[Class Diagram - Simplified version](ClassDiagramV5.png)
+
+[Class Diagram - Detailed version](ClassDiagramV6.png)
 
 [Sequence Diagram](SequenceDiagramV3.png)
 
