@@ -21,7 +21,7 @@ public class Client {
     // Constructor
     public Client( int clientID) {
         this.clientID = clientID;
-        this.logger = new Logger( "client" + clientID + ".log" );
+        this.logger = LoggerFactory.getInstance().getLogger( "client" + clientID + ".log" );
 
         // Create heartbeat sender component
         this.heartbeatSender = new HeartbeatSenderClient( clientID, this, logger );

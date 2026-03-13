@@ -27,7 +27,7 @@ public class Monitor {
     // Constructor
     private Monitor() {
         port = 9000;
-        this.logger = new Logger( "monitor.log" );
+        this.logger = LoggerFactory.getInstance().getLogger( "monitor.log" );
         failureDetector();
     }
     

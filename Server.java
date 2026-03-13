@@ -29,7 +29,7 @@ public class Server {
         this.serverID = port;
         nextID++;
         this.isPrimary = false;
-        this.logger = new Logger( "server" + port + ".log" );
+        this.logger = LoggerFactory.getInstance().getLogger( "server" + port + ".log" );
 
         // Create heartbeat sender
         this.heartbeatSender = new HeartbeatSenderServer( serverID, this, logger );
