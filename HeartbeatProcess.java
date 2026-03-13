@@ -8,9 +8,9 @@ public class HeartbeatProcess implements Runnable {
     private final Monitor monitor;
     private final Logger logger;
 
-    public HeartbeatProcess( Socket socket, Monitor monitor, Logger logger ) {
+    public HeartbeatProcess( Socket socket, Logger logger ) {
         this.socket = socket;
-        this.monitor = monitor;
+        this.monitor = Monitor.getInstance();
         this.logger = logger;
     }
 

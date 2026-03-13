@@ -72,7 +72,7 @@ public class Monitor {
             // Waits for connection, returns socket when connected
             Socket incomingSocket = serverSocket.accept();
 
-            threadPool.submit( new HeartbeatProcess( incomingSocket, this, logger ) );
+            threadPool.submit( new HeartbeatProcess( incomingSocket, logger ) );
         }
 
         serverSocket.close();
