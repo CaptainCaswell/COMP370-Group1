@@ -39,13 +39,25 @@ public class MonitorUI extends JFrame {
     private int nextServerID = 2001;
     private int nextClientID = 1;
 
-    public MonitorUI(Monitor monitor) {
-        this.monitor = monitor;
+    // Singleton Instance
+    private static MonitorUI instance;
+
+    private MonitorUI() {
+        this.monitor = Monitor.getInstance();
         this.clientProcesses = new HashMap<>();
         this.serverProcesses = new HashMap<>();
 
         initializeUI();
         startUpdateThread();
+    }
+
+    public static synchronized MonitorUI getInstance() {
+        // Check if instance exists
+        if ( instance == null ) {
+            instance = new MonitorUI();
+        }
+
+        return instance;
     }
 
     private void initializeUI() {

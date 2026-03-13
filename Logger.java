@@ -9,7 +9,7 @@ public class Logger {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss.SSS" );
     private PrintWriter fileWriter;
     private String logFileName;
-    private static MonitorUI monitorUI= null;
+    private MonitorUI monitorUI = null;
 
     // Constructor
     public Logger( String logFileName ) {
@@ -27,7 +27,7 @@ public class Logger {
     }
 
     // Attach logger to UI
-    public static void setMonitorUI( MonitorUI ui ) {
+    public void setMonitorUI( MonitorUI ui ) {
         monitorUI = ui;
     }
 

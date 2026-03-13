@@ -22,8 +22,10 @@ public class Monitor {
 
     protected static final long INTERVAL = 500; // Time between connection checks in milliseconds
 
+    private static Monitor instance = null;
+
     // Constructor
-    public Monitor() {
+    private Monitor() {
         port = 9000;
         this.logger = new Logger( "monitor.log" );
         failureDetector();
@@ -31,20 +33,31 @@ public class Monitor {
     
     public static void main( String[] args ) throws IOException {
         // Create monitor instance
-        Monitor monitor = new Monitor();
+        Monitor monitor = Monitor.getInstance();
+        LoggerFactory loggerFactory = LoggerFactory.getInstance();
 
         // Check for arg and if it is UI
         if ( args.length > 0 && args[0].equals( "ui" ) ) {
             // Launch UI
             javax.swing.SwingUtilities.invokeLater( () -> {
-                MonitorUI ui = new MonitorUI( monitor );
-                Logger.setMonitorUI( ui );
+                MonitorUI ui = MonitorUI.getInstance();
+                loggerFactory.setMonitorUI();
                 ui.setVisible( true );
             });
         }
 
         // Start monitor
         monitor.start();
+    }
+
+    public static synchronized Monitor getInstance() {
+        // Check if instance exists
+        if( instance == null ) {
+            // Create new instance
+            instance = new Monitor();
+        }
+
+        return instance;
     }
 
     // Start Basic Server
