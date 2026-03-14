@@ -15,24 +15,21 @@ public class Server {
     protected int sum = 0;
     protected boolean isPrimary;
     protected int serverID;
-    protected int port;
     protected Logger logger;
+
+    protected ServerType config;
 
     protected HeartbeatSenderServer heartbeatSender;
 
-    protected static final String host = "localhost";
-    protected static final int monitorPort = 9000;
-    protected static final int MAX_SERVERS = 9999;
 
     // Constructor
     public Server( int port) {
+        this.config = new ServerType("localhost", port, 9000);
+        
         this.serverID = port;
-        nextID++;
         this.isPrimary = false;
-        this.logger = LoggerFactory.getInstance().getLogger( "server" + port + ".log" );
-
-        // Create heartbeat sender
-        this.heartbeatSender = new HeartbeatSenderServer( serverID, this, logger );
+        this.logger = LoggerFactory.getInstance().getLogger("server" + port + ".log");
+        this.heartbeatSender = new HeartbeatSenderServer(serverID, this, logger);
     }
     
     // Main
@@ -73,7 +70,7 @@ public class Server {
         heartbeatThread.start();
 
         // Open socket
-        serverSocket = new ServerSocket( serverID );
+        serverSocket = new ServerSocket( config.getPort() );
 
         // Announce system running
         logger.log( "Server " + serverID + " started" );        
@@ -157,7 +154,7 @@ public class Server {
     }
 
     protected boolean verifyPrimary() {
-    try (Socket socket = new Socket(host, monitorPort);
+    try (Socket socket = new Socket(config.getHost(), config.getMonitorPort());
          Scanner input = new Scanner(socket.getInputStream());
          PrintStream output = new PrintStream(socket.getOutputStream())) {
 
