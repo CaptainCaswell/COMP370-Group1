@@ -5,9 +5,27 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Monitor {
     private ExecutorService threadPool = Executors.newCachedThreadPool();
+
+    private List<Observer> observers = new ArrayList<>(); // List of observers to notify of events - MINI PROJECT 2 ADDITION
+    // MINI PROJECT 2 ADDITION
+    public void addObserver( Observer o) {
+        observers.add( o );
+    }
+
+    public void removeObserver(Observer o) {
+        observers.remove( o );
+    }
+
+    private void notifyObservers( String event, int nodeID ) {
+        for ( Observer o : observers ) {
+            o.update( event, nodeID );
+        }
+    }
 
     protected ServerSocket serverSocket; // Socket for this program
     protected int port; // Port for this program
@@ -35,6 +53,8 @@ public class Monitor {
         // Create monitor instance
         Monitor monitor = Monitor.getInstance();
         LoggerFactory loggerFactory = LoggerFactory.getInstance();
+
+        monitor.addObserver(new ServerStateLogger()); // Add server state logger observer - MINI PROJECT 2 ADDITION
 
         // Check for arg and if it is UI
         if ( args.length > 0 && args[0].equals( "ui" ) ) {
@@ -259,6 +279,8 @@ public class Monitor {
 
             if ( primary != null && !primary.isAlive() ) {
                 logger.log( "Primary server " + primaryServerID + " not responding, triggering failover", 3 );
+
+                notifyObservers("SERVER_FAILURE", primaryServerID); // Notify observers of server failure - MINI PROJECT 2 ADDITION
                 
                 // Flag for needing to be shut down
                 primary.setShutdown();
@@ -275,6 +297,8 @@ public class Monitor {
             // Only trim secondary dead servers
             if ( server.nodeID != primaryServerID && !server.isAlive() ) {
                 logger.log( "Secondary server " + server.nodeID + " not responding", 3 );
+
+                notifyObservers("SERVER_FAILURE", server.nodeID); // Notify observers of server failure - MINI PROJECT 2 ADDITION
 
                 // Flag for needing to be shut down
                 server.setShutdown();
@@ -327,6 +351,9 @@ public class Monitor {
         // If candidate found
         if ( candidateID != null ) {
             primaryServerID = candidateID;
+
+            notifyObservers("PRIMARY_CHANGED", primaryServerID); // Notify observers of primary change - MINI PROJECT 2 ADDITION
+
             logger.log( "FAILOVER to Server " + primaryServerID + " with restored sum " + lastPrimarySum + " on next heartbeat", 3 );
             
         }
